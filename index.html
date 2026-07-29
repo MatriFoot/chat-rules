@@ -24,26 +24,29 @@
             overflow-x: hidden;
         }
 
-        /* ===== ХОЛСТ ДЛЯ ВОДЫ ===== */
-        #waterCanvas {
+        /* ===== ФОНОВЫЙ ГРАДИЕНТ С АНИМАЦИЕЙ ===== */
+        .bg-gradient {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
-            pointer-events: none;
-            opacity: 0.5;
+            background: linear-gradient(135deg, #0a0b12 0%, #141a2e 30%, #0d1224 60%, #0a0b12 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease-in-out infinite alternate;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* ===== ФОНОВЫЕ СВЕЧЕНИЯ (холодные, глубокие) ===== */
+        /* ===== СВЕЧЕНИЯ ===== */
         .glow-1 {
             position: fixed;
             width: 50vw;
             height: 50vw;
             top: -10%;
             left: -10%;
-            background: radial-gradient(circle, rgba(60, 100, 180, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(60, 100, 200, 0.15) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
             animation: pulseGlow 8s ease-in-out infinite alternate;
@@ -54,34 +57,36 @@
             height: 40vw;
             bottom: -5%;
             right: -5%;
-            background: radial-gradient(circle, rgba(30, 80, 140, 0.10) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(30, 80, 180, 0.10) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
             animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
         }
         @keyframes pulseGlow {
-            0% { opacity: 0.2; transform: scale(0.9); }
-            100% { opacity: 0.5; transform: scale(1.1); }
+            0% { opacity: 0.3; transform: scale(0.9); }
+            100% { opacity: 0.7; transform: scale(1.1); }
         }
 
         /* ===== ПАРЯЩИЕ ИСКРЫ ===== */
         .spark {
             position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(180, 220, 255, 0.2), transparent 70%);
+            background: radial-gradient(circle, rgba(180, 220, 255, 0.3), transparent 70%);
             pointer-events: none;
             z-index: 0;
-            filter: blur(2px);
-            animation: floatSpark 18s infinite alternate ease-in-out;
+            filter: blur(1px);
+            animation: floatSpark var(--duration) infinite alternate ease-in-out;
         }
-        .spark:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 20s; }
-        .spark:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 24s; animation-delay: 2s; }
-        .spark:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 16s; animation-delay: 4s; }
-        .spark:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 22s; animation-delay: 1s; }
-        .spark:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 26s; animation-delay: 3s; }
+        .spark:nth-child(1) { --duration: 18s; width: 6px; height: 6px; top: 10%; left: 5%; animation-delay: 0s; }
+        .spark:nth-child(2) { --duration: 22s; width: 10px; height: 10px; bottom: 15%; right: 8%; animation-delay: 2s; }
+        .spark:nth-child(3) { --duration: 16s; width: 4px; height: 4px; top: 45%; right: 2%; animation-delay: 4s; }
+        .spark:nth-child(4) { --duration: 20s; width: 8px; height: 8px; bottom: 20%; left: 10%; animation-delay: 1s; }
+        .spark:nth-child(5) { --duration: 24s; width: 5px; height: 5px; top: 70%; left: 60%; animation-delay: 3s; }
+        .spark:nth-child(6) { --duration: 19s; width: 7px; height: 7px; top: 30%; left: 90%; animation-delay: 5s; }
+        .spark:nth-child(7) { --duration: 21s; width: 9px; height: 9px; bottom: 30%; left: 3%; animation-delay: 0.5s; }
         @keyframes floatSpark {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
-            100% { transform: translate(60px, -80px) scale(2.5) rotate(140deg); opacity: 0.5; }
+            100% { transform: translate(60px, -80px) scale(2.5) rotate(160deg); opacity: 0.6; }
         }
 
         /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
@@ -90,47 +95,52 @@
             z-index: 1;
             max-width: 850px;
             width: 100%;
-            background: rgba(12, 14, 26, 0.65);
+            background: rgba(12, 14, 26, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 48px;
             padding: 3rem 2.5rem 2.5rem;
-            border: 1px solid rgba(100, 150, 220, 0.15);
-            box-shadow: 0 0 80px rgba(60, 120, 220, 0.05), inset 0 0 80px rgba(60, 120, 220, 0.02);
-            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(100, 150, 220, 0.12);
+            box-shadow: 0 0 80px rgba(60, 120, 220, 0.04), inset 0 0 80px rgba(60, 120, 220, 0.02);
+            animation: containerFade 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px) scale(0.97); }
+        @keyframes containerFade {
+            0% { opacity: 0; transform: translateY(40px) scale(0.96); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ===== ДЕКОРАТИВНАЯ РАМКА (свечение) ===== */
+        /* ===== ДЕКОРАТИВНАЯ РАМКА ===== */
         .container::before {
             content: '';
             position: absolute;
             inset: -3px;
             border-radius: 50px;
             padding: 2px;
-            background: linear-gradient(135deg, rgba(100, 160, 255, 0.15), rgba(60, 120, 220, 0.08), rgba(100, 160, 255, 0.15));
+            background: linear-gradient(135deg, rgba(100, 160, 255, 0.2), rgba(60, 120, 220, 0.05), rgba(100, 160, 255, 0.2));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
             z-index: -1;
+            animation: borderPulse 4s ease-in-out infinite alternate;
+        }
+        @keyframes borderPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
         }
 
-        /* ===== УГЛЫ (как старинная книга) ===== */
+        /* ===== УГЛЫ ===== */
         .corner {
             position: absolute;
             width: 36px;
             height: 36px;
-            border-color: rgba(100, 160, 255, 0.2);
+            border-color: rgba(100, 160, 255, 0.25);
             border-style: solid;
             border-width: 0;
             pointer-events: none;
-            opacity: 0.4;
-            animation: cornerAppear 1.5s ease 0.3s both;
+            opacity: 0;
+            animation: cornerAppear 1.5s ease 0.5s forwards;
         }
         .corner-tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
         .corner-tr { top: 14px; right: 14px; border-top-width: 2px; border-right-width: 2px; }
@@ -138,7 +148,7 @@
         .corner-br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
         @keyframes cornerAppear {
             0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(1); }
         }
 
         /* ===== ШАПКА ===== */
@@ -146,33 +156,59 @@
             text-align: center;
             margin-bottom: 2.5rem;
         }
-        .header .ornament {
+
+        /* Орнамент с анимацией */
+        .ornament {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.8rem;
             margin-bottom: 1rem;
-            opacity: 0.4;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
-        .header .ornament .line {
+        .ornament .line {
             width: 60px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.5), transparent);
+            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.6), transparent);
+            position: relative;
         }
-        .header .ornament .diamond {
-            color: rgba(100, 160, 255, 0.6);
+        .ornament .line::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: rgba(100, 160, 255, 0.3);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: dotPulse 3s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.2; transform: translateX(-50%) scale(0.8); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
+        }
+        .ornament .diamond {
+            color: rgba(100, 160, 255, 0.5);
             font-size: 1.2rem;
             font-weight: 200;
             letter-spacing: 4px;
+            animation: diamondGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes diamondGlow {
+            0% { opacity: 0.3; text-shadow: 0 0 10px rgba(100, 160, 255, 0.1); }
+            100% { opacity: 0.8; text-shadow: 0 0 30px rgba(100, 160, 255, 0.3); }
         }
 
+        /* Заголовок с анимацией букв */
         .header h1 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 700;
             font-size: 3.6rem;
             letter-spacing: 0.06em;
             color: #e0ecff;
-            text-shadow: 0 0 40px rgba(60, 120, 220, 0.15);
+            text-shadow: 0 0 40px rgba(60, 120, 220, 0.1);
             line-height: 1.1;
         }
         .header h1 em {
@@ -182,8 +218,35 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 60px rgba(60, 120, 220, 0.2);
+            text-shadow: 0 0 60px rgba(60, 120, 220, 0.15);
         }
+        .header h1 .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: charAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .header h1 .char:nth-child(1) { animation-delay: 0.10s; }
+        .header h1 .char:nth-child(2) { animation-delay: 0.16s; }
+        .header h1 .char:nth-child(3) { animation-delay: 0.22s; }
+        .header h1 .char:nth-child(4) { animation-delay: 0.28s; }
+        .header h1 .char:nth-child(5) { animation-delay: 0.34s; }
+        .header h1 .char:nth-child(6) { animation-delay: 0.40s; }
+        .header h1 .char:nth-child(7) { animation-delay: 0.46s; }
+        .header h1 .char:nth-child(8) { animation-delay: 0.52s; }
+        .header h1 .char:nth-child(9) { animation-delay: 0.58s; }
+        .header h1 .char:nth-child(10) { animation-delay: 0.64s; }
+        .header h1 .char:nth-child(11) { animation-delay: 0.70s; }
+        .header h1 .char:nth-child(12) { animation-delay: 0.76s; }
+        .header h1 .char:nth-child(13) { animation-delay: 0.82s; }
+        .header h1 .char:nth-child(14) { animation-delay: 0.88s; }
+        .header h1 .char:nth-child(15) { animation-delay: 0.94s; }
+        .header h1 .char:nth-child(16) { animation-delay: 1.00s; }
+        @keyframes charAppear {
+            0% { opacity: 0; transform: translateY(30px) rotateX(-10deg); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+
         .header .sub {
             font-weight: 200;
             font-size: 1rem;
@@ -195,6 +258,12 @@
             font-style: italic;
             font-weight: 400;
             letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         /* ===== РАЗДЕЛИТЕЛЬ ===== */
@@ -203,7 +272,12 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.3), transparent);
             margin: 2rem auto;
-            opacity: 0.5;
+            opacity: 0.3;
+            animation: dividerPulse 4s ease-in-out infinite alternate;
+        }
+        @keyframes dividerPulse {
+            0% { opacity: 0.2; transform: scaleX(0.9); }
+            100% { opacity: 0.6; transform: scaleX(1.1); }
         }
 
         /* ===== СПИСОК ПРАВИЛ ===== */
@@ -217,12 +291,34 @@
             background: rgba(255, 255, 255, 0.02);
             border-radius: 20px;
             padding: 1rem 1.6rem;
-            border-left: 2px solid rgba(100, 160, 255, 0.15);
-            transition: 0.3s ease;
+            border-left: 2px solid rgba(100, 160, 255, 0.10);
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: ruleSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        .rule:nth-child(1) { animation-delay: 1.3s; }
+        .rule:nth-child(2) { animation-delay: 1.4s; }
+        .rule:nth-child(3) { animation-delay: 1.5s; }
+        .rule:nth-child(4) { animation-delay: 1.6s; }
+        .rule:nth-child(5) { animation-delay: 1.7s; }
+        .rule:nth-child(6) { animation-delay: 1.8s; }
+        .rule:nth-child(7) { animation-delay: 1.9s; }
+        .rule:nth-child(8) { animation-delay: 2.0s; }
+        .rule:nth-child(9) { animation-delay: 2.1s; }
+        .rule:nth-child(10) { animation-delay: 2.2s; }
+        .rule:nth-child(11) { animation-delay: 2.3s; }
+        .rule:nth-child(12) { animation-delay: 2.4s; }
+        @keyframes ruleSlide {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
         .rule:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-left-color: rgba(100, 160, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: rgba(100, 160, 255, 0.5);
+            transform: translateX(8px) scale(1.01);
+            box-shadow: 0 0 40px rgba(60, 120, 220, 0.04);
         }
 
         .rule .title {
@@ -259,7 +355,9 @@
             padding: 1.6rem 2rem;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 24px;
-            border: 1px solid rgba(100, 160, 255, 0.08);
+            border: 1px solid rgba(100, 160, 255, 0.06);
+            opacity: 0;
+            animation: fadeInUp 1s ease 2.6s forwards;
         }
         .exit-block h3 {
             font-family: 'Cormorant Garamond', serif;
@@ -285,6 +383,11 @@
             font-style: italic;
             color: #c0d4f0;
             border-left: 2px solid rgba(100, 160, 255, 0.2);
+            transition: 0.3s ease;
+        }
+        .exit-block .example:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-left-color: rgba(100, 160, 255, 0.5);
         }
 
         /* ===== ФУТЕР ===== */
@@ -292,17 +395,23 @@
             text-align: center;
             margin-top: 2.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(100, 160, 255, 0.08);
+            border-top: 1px solid rgba(100, 160, 255, 0.06);
             font-weight: 200;
             font-size: 0.75rem;
             letter-spacing: 3px;
             color: #6a7a8a;
             text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInUp 1s ease 3s forwards;
         }
         .footer span {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             color: #8a9ab0;
+        }
+        .footer .separator {
+            color: rgba(100, 160, 255, 0.2);
+            margin: 0 0.6rem;
         }
 
         /* ===== АДАПТИВ ===== */
@@ -321,20 +430,19 @@
             .rule .text { font-size: 0.85rem; padding-left: 0.8rem; }
             .exit-block { padding: 1.2rem; }
             .exit-block h3 { font-size: 1.3rem; }
-            .header .ornament .line { width: 30px; }
+            .ornament .line { width: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Холст для воды -->
-    <canvas id="waterCanvas"></canvas>
+    <div class="bg-gradient"></div>
 
-    <!-- Фоновые свечения -->
     <div class="glow-1"></div>
     <div class="glow-2"></div>
 
-    <!-- Искры -->
+    <div class="spark"></div>
+    <div class="spark"></div>
     <div class="spark"></div>
     <div class="spark"></div>
     <div class="spark"></div>
@@ -354,7 +462,9 @@
                 <span class="line"></span>
             </div>
             <h1>
-                Правила <em>Флуда</em>
+                <span class="char">П</span><span class="char">р</span><span class="char">а</span><span class="char">в</span><span class="char">и</span><span class="char">л</span><span class="char">а</span>
+                <span class="char"> </span>
+                <span class="char"><em>Ф</em></span><span class="char"><em>л</em></span><span class="char"><em>у</em></span><span class="char"><em>д</em></span><span class="char"><em>а</em></span>
             </h1>
             <p class="sub">Wizard's Library</p>
         </div>
@@ -426,132 +536,11 @@
         </div>
 
         <div class="footer">
-            <span>нарушил → получил → понял → исправился</span> &nbsp;✦&nbsp; <span>Wizard's Library</span>
+            <span>нарушил → получил → понял → исправился</span>
+            <span class="separator">✦</span>
+            <span>Wizard's Library</span>
         </div>
     </div>
 
-    <script>
-        // ===== ВОДА (физика волн с реакцией на мышь) =====
-        const canvas = document.getElementById('waterCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let mouseX = -1000, mouseY = -1000;
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        // Параметры волн
-        const cols = 120;
-        const rows = 60;
-        const waveWidth = 1.2;
-        const waveHeight = 0.8;
-        const speed = 0.015;
-        let time = 0;
-
-        // Массив точек для волн
-        let particles = [];
-        for (let i = 0; i < cols; i++) {
-            particles[i] = [];
-            for (let j = 0; j < rows; j++) {
-                particles[i][j] = {
-                    x: 0,
-                    y: 0,
-                    baseY: 0,
-                    offset: Math.random() * 100,
-                };
-            }
-        }
-
-        // Отслеживание мыши (движение)
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-        document.addEventListener('touchmove', (e) => {
-            const touch = e.touches[0];
-            if (touch) {
-                mouseX = touch.clientX;
-                mouseY = touch.clientY;
-            }
-        });
-
-        function drawWaves() {
-            ctx.clearRect(0, 0, width, height);
-
-            const spacingX = width / (cols - 1);
-            const spacingY = height / (rows - 1);
-
-            // Обновление и рисование волн
-            for (let i = 0; i < cols; i++) {
-                for (let j = 0; j < rows; j++) {
-                    const x = (i / (cols - 1)) * width;
-                    const y = (j / (rows - 1)) * height;
-
-                    // Основная волна (синус + косинус для сложного движения)
-                    let wave = Math.sin(i * waveWidth + time) * waveHeight * 2 +
-                               Math.cos(j * 0.6 + time * 0.7) * 1.5 +
-                               Math.sin((i + j) * 0.4 + time * 0.5) * 1.2;
-
-                    // Влияние мыши (притяжение/отталкивание)
-                    const dx = x - mouseX;
-                    const dy = y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 200) {
-                        const force = (200 - dist) / 200 * 8;
-                        wave += force * 1.2;
-                    }
-
-                    const offsetY = wave * 3.5;
-
-                    // Рисуем светящиеся точки
-                    const alpha = 0.08 + 0.06 * Math.sin(i * 0.3 + j * 0.2 + time * 0.5);
-                    ctx.beginPath();
-                    ctx.arc(x, y + offsetY, 1.8 + 0.8 * Math.sin(time * 0.5 + i + j), 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(100, 180, 255, ${alpha})`;
-                    ctx.fill();
-
-                    // Рисуем линии (сеть волн)
-                    if (i < cols - 1 && j < rows - 1) {
-                        const nextX = ((i + 1) / (cols - 1)) * width;
-                        const nextY = ((j + 1) / (rows - 1)) * height;
-                        const waveNextX = Math.sin((i + 1) * waveWidth + time) * waveHeight * 2 +
-                                          Math.cos(j * 0.6 + time * 0.7) * 1.5 +
-                                          Math.sin((i + 1 + j) * 0.4 + time * 0.5) * 1.2;
-                        const waveNextY = Math.sin(i * waveWidth + time) * waveHeight * 2 +
-                                          Math.cos((j + 1) * 0.6 + time * 0.7) * 1.5 +
-                                          Math.sin((i + j + 1) * 0.4 + time * 0.5) * 1.2;
-
-                        const offX = waveNextX * 3.5;
-                        const offY = waveNextY * 3.5;
-
-                        // Линии по горизонтали
-                        ctx.beginPath();
-                        ctx.moveTo(x, y + offsetY);
-                        ctx.lineTo(nextX, y + offX);
-                        ctx.strokeStyle = `rgba(80, 150, 220, ${0.04 + 0.02 * Math.sin(time * 0.3 + i + j)})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.stroke();
-
-                        // Линии по вертикали
-                        ctx.beginPath();
-                        ctx.moveTo(x, y + offsetY);
-                        ctx.lineTo(x, (y + spacingY) + offY);
-                        ctx.strokeStyle = `rgba(80, 150, 220, ${0.04 + 0.02 * Math.cos(time * 0.3 + i + j)})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            time += speed;
-            requestAnimationFrame(drawWaves);
-        }
-
-        drawWaves();
-    </script>
 </body>
-</html>
+    </html>
