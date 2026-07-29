@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Правила чата ✦ Аура-эстетика</title>
+    <title>Правила Флуда · Wizard's Library</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
     <style>
         * {
@@ -17,21 +17,33 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0b0914;
+            background: #0a0b12;
             padding: 2rem 1.5rem;
             font-family: 'Inter', sans-serif;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* ===== ФОНОВЫЕ СВЕЧЕНИЯ ===== */
+        /* ===== ХОЛСТ ДЛЯ ВОДЫ ===== */
+        #waterCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* ===== ФОНОВЫЕ СВЕЧЕНИЯ (холодные, глубокие) ===== */
         .glow-1 {
             position: fixed;
             width: 50vw;
             height: 50vw;
             top: -10%;
             left: -10%;
-            background: radial-gradient(circle, rgba(200, 140, 255, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(60, 100, 180, 0.12) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
             animation: pulseGlow 8s ease-in-out infinite alternate;
@@ -42,46 +54,32 @@
             height: 40vw;
             bottom: -5%;
             right: -5%;
-            background: radial-gradient(circle, rgba(255, 180, 200, 0.10) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(30, 80, 140, 0.10) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
             animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
         }
-        .glow-3 {
-            position: fixed;
-            width: 30vw;
-            height: 30vw;
-            top: 40%;
-            left: 50%;
-            background: radial-gradient(circle, rgba(150, 200, 255, 0.06) 0%, transparent 70%);
-            filter: blur(100px);
-            z-index: 0;
-            animation: pulseGlow 12s ease-in-out infinite alternate;
-        }
         @keyframes pulseGlow {
-            0% { opacity: 0.3; transform: scale(0.9); }
-            100% { opacity: 0.7; transform: scale(1.1); }
+            0% { opacity: 0.2; transform: scale(0.9); }
+            100% { opacity: 0.5; transform: scale(1.1); }
         }
 
-        /* ===== ПАРЯЩИЕ ЧАСТИЦЫ ===== */
-        .particle {
+        /* ===== ПАРЯЩИЕ ИСКРЫ ===== */
+        .spark {
             position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(220, 180, 255, 0.20), transparent 70%);
+            background: radial-gradient(circle, rgba(180, 220, 255, 0.2), transparent 70%);
             pointer-events: none;
             z-index: 0;
             filter: blur(2px);
-            animation: floatParticle 16s infinite alternate ease-in-out;
+            animation: floatSpark 18s infinite alternate ease-in-out;
         }
-        .particle:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 18s; }
-        .particle:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 22s; animation-delay: 2s; }
-        .particle:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 14s; animation-delay: 4s; }
-        .particle:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 20s; animation-delay: 1s; }
-        .particle:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 24s; animation-delay: 3s; }
-        .particle:nth-child(6) { width: 7px; height: 7px; top: 25%; left: 80%; animation-duration: 16s; animation-delay: 5s; }
-        .particle:nth-child(7) { width: 9px; height: 9px; bottom: 40%; left: 3%; animation-duration: 19s; animation-delay: 0.5s; }
-        .particle:nth-child(8) { width: 4px; height: 4px; top: 55%; left: 90%; animation-duration: 21s; animation-delay: 2.5s; }
-        @keyframes floatParticle {
+        .spark:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 20s; }
+        .spark:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 24s; animation-delay: 2s; }
+        .spark:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 16s; animation-delay: 4s; }
+        .spark:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 22s; animation-delay: 1s; }
+        .spark:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 26s; animation-delay: 3s; }
+        @keyframes floatSpark {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
             100% { transform: translate(60px, -80px) scale(2.5) rotate(140deg); opacity: 0.5; }
         }
@@ -92,16 +90,15 @@
             z-index: 1;
             max-width: 850px;
             width: 100%;
-            background: rgba(18, 14, 30, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(12, 14, 26, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 48px;
             padding: 3rem 2.5rem 2.5rem;
-            border: 1px solid rgba(220, 180, 255, 0.15);
-            box-shadow: 0 0 80px rgba(180, 120, 255, 0.05), inset 0 0 80px rgba(220, 180, 255, 0.02);
+            border: 1px solid rgba(100, 150, 220, 0.15);
+            box-shadow: 0 0 80px rgba(60, 120, 220, 0.05), inset 0 0 80px rgba(60, 120, 220, 0.02);
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(30px) scale(0.97); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -114,7 +111,7 @@
             inset: -3px;
             border-radius: 50px;
             padding: 2px;
-            background: linear-gradient(135deg, rgba(200, 160, 255, 0.2), rgba(255, 180, 200, 0.1), rgba(160, 200, 255, 0.2));
+            background: linear-gradient(135deg, rgba(100, 160, 255, 0.15), rgba(60, 120, 220, 0.08), rgba(100, 160, 255, 0.15));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -123,16 +120,16 @@
             z-index: -1;
         }
 
-        /* ===== УГЛЫ (аура-акценты) ===== */
+        /* ===== УГЛЫ (как старинная книга) ===== */
         .corner {
             position: absolute;
             width: 36px;
             height: 36px;
-            border-color: rgba(200, 160, 255, 0.2);
+            border-color: rgba(100, 160, 255, 0.2);
             border-style: solid;
             border-width: 0;
             pointer-events: none;
-            opacity: 0.5;
+            opacity: 0.4;
             animation: cornerAppear 1.5s ease 0.3s both;
         }
         .corner-tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
@@ -141,10 +138,10 @@
         .corner-br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
         @keyframes cornerAppear {
             0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.4; transform: scale(1); }
         }
 
-        /* ===== ЗАГОЛОВОК ===== */
+        /* ===== ШАПКА ===== */
         .header {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -160,10 +157,10 @@
         .header .ornament .line {
             width: 60px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(200, 160, 255, 0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.5), transparent);
         }
         .header .ornament .diamond {
-            color: rgba(200, 160, 255, 0.7);
+            color: rgba(100, 160, 255, 0.6);
             font-size: 1.2rem;
             font-weight: 200;
             letter-spacing: 4px;
@@ -174,33 +171,37 @@
             font-weight: 700;
             font-size: 3.6rem;
             letter-spacing: 0.06em;
-            color: #f0e8ff;
-            text-shadow: 0 0 40px rgba(180, 140, 255, 0.15);
+            color: #e0ecff;
+            text-shadow: 0 0 40px rgba(60, 120, 220, 0.15);
             line-height: 1.1;
         }
         .header h1 em {
             font-style: italic;
             font-weight: 400;
-            background: linear-gradient(135deg, #e8d0ff, #d4b0ff, #c090ff);
+            background: linear-gradient(135deg, #b0d0ff, #80b0ff, #6090ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 60px rgba(200, 160, 255, 0.2);
+            text-shadow: 0 0 60px rgba(60, 120, 220, 0.2);
         }
         .header .sub {
             font-weight: 200;
             font-size: 1rem;
             letter-spacing: 6px;
-            color: #a090b0;
+            color: #7a8aa0;
             text-transform: uppercase;
             margin-top: 0.3rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: 3px;
         }
 
         /* ===== РАЗДЕЛИТЕЛЬ ===== */
         .divider {
             width: 80px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(200, 160, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.3), transparent);
             margin: 2rem auto;
             opacity: 0.5;
         }
@@ -209,26 +210,26 @@
         .rules {
             display: flex;
             flex-direction: column;
-            gap: 1.6rem;
+            gap: 1.4rem;
         }
 
         .rule {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 20px;
-            padding: 1.2rem 1.6rem;
-            border-left: 2px solid rgba(200, 160, 255, 0.15);
+            padding: 1rem 1.6rem;
+            border-left: 2px solid rgba(100, 160, 255, 0.15);
             transition: 0.3s ease;
         }
         .rule:hover {
             background: rgba(255, 255, 255, 0.04);
-            border-left-color: rgba(200, 160, 255, 0.4);
+            border-left-color: rgba(100, 160, 255, 0.4);
         }
 
         .rule .title {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 700;
             font-size: 1.3rem;
-            color: #e8d0ff;
+            color: #d0e4ff;
             display: flex;
             align-items: center;
             gap: 0.6rem;
@@ -237,18 +238,18 @@
         .rule .title .num {
             font-weight: 200;
             font-size: 1rem;
-            color: rgba(200, 160, 255, 0.4);
+            color: rgba(100, 160, 255, 0.4);
             letter-spacing: 2px;
         }
         .rule .text {
             font-weight: 300;
             font-size: 0.95rem;
             line-height: 1.7;
-            color: #c8b8d8;
+            color: #b0c0d8;
             padding-left: 1.8rem;
         }
         .rule .text strong {
-            color: #e8d0ff;
+            color: #d0e4ff;
             font-weight: 400;
         }
 
@@ -258,13 +259,13 @@
             padding: 1.6rem 2rem;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 24px;
-            border: 1px solid rgba(200, 160, 255, 0.08);
+            border: 1px solid rgba(100, 160, 255, 0.08);
         }
         .exit-block h3 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 600;
             font-size: 1.6rem;
-            color: #e8d0ff;
+            color: #d0e4ff;
             text-align: center;
             margin-bottom: 0.8rem;
         }
@@ -272,7 +273,7 @@
             font-weight: 300;
             font-size: 0.95rem;
             line-height: 1.8;
-            color: #c8b8d8;
+            color: #b0c0d8;
             text-align: center;
         }
         .exit-block .example {
@@ -282,8 +283,8 @@
             margin-top: 1rem;
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            color: #d4c0e8;
-            border-left: 2px solid rgba(200, 160, 255, 0.2);
+            color: #c0d4f0;
+            border-left: 2px solid rgba(100, 160, 255, 0.2);
         }
 
         /* ===== ФУТЕР ===== */
@@ -291,17 +292,17 @@
             text-align: center;
             margin-top: 2.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(200, 160, 255, 0.08);
+            border-top: 1px solid rgba(100, 160, 255, 0.08);
             font-weight: 200;
             font-size: 0.75rem;
             letter-spacing: 3px;
-            color: #6a5a7a;
+            color: #6a7a8a;
             text-transform: uppercase;
         }
         .footer span {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            color: #8a7a9a;
+            color: #8a9ab0;
         }
 
         /* ===== АДАПТИВ ===== */
@@ -315,7 +316,7 @@
             .corner-br { bottom: 10px; right: 10px; }
             .header h1 { font-size: 2.6rem; }
             .header .sub { font-size: 0.75rem; letter-spacing: 4px; }
-            .rule { padding: 1rem; }
+            .rule { padding: 0.8rem; }
             .rule .title { font-size: 1.1rem; }
             .rule .text { font-size: 0.85rem; padding-left: 0.8rem; }
             .exit-block { padding: 1.2rem; }
@@ -326,29 +327,26 @@
 </head>
 <body>
 
+    <!-- Холст для воды -->
+    <canvas id="waterCanvas"></canvas>
+
     <!-- Фоновые свечения -->
     <div class="glow-1"></div>
     <div class="glow-2"></div>
-    <div class="glow-3"></div>
 
-    <!-- Частицы -->
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
+    <!-- Искры -->
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
 
     <div class="container">
-        <!-- Углы -->
         <div class="corner corner-tl"></div>
         <div class="corner corner-tr"></div>
         <div class="corner corner-bl"></div>
         <div class="corner corner-br"></div>
 
-        <!-- Шапка -->
         <div class="header">
             <div class="ornament">
                 <span class="line"></span>
@@ -356,14 +354,13 @@
                 <span class="line"></span>
             </div>
             <h1>
-                <em>Правила</em> чата
+                Правила <em>Флуда</em>
             </h1>
-            <p class="sub">сохраняй ауру ✦ будь в потоке</p>
+            <p class="sub">Wizard's Library</p>
         </div>
 
         <div class="divider"></div>
 
-        <!-- Список правил -->
         <div class="rules">
             <div class="rule">
                 <div class="title"><span class="num">01.</span> СПАМ</div>
@@ -417,7 +414,6 @@
 
         <div class="divider"></div>
 
-        <!-- Порядок выхода из флуда -->
         <div class="exit-block">
             <h3>☾ ˖ ࣪ ✦ ПОРЯДОК ВЫХОДА ИЗ ФЛУДА</h3>
             <p>Перед выходом из чата участник обязан:</p>
@@ -429,11 +425,133 @@
             </div>
         </div>
 
-        <!-- Футер -->
         <div class="footer">
-            <span>нарушил → получил → понял → исправился</span> &nbsp;✦&nbsp; <span>сохраняй ауру</span>
+            <span>нарушил → получил → понял → исправился</span> &nbsp;✦&nbsp; <span>Wizard's Library</span>
         </div>
     </div>
 
+    <script>
+        // ===== ВОДА (физика волн с реакцией на мышь) =====
+        const canvas = document.getElementById('waterCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let mouseX = -1000, mouseY = -1000;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Параметры волн
+        const cols = 120;
+        const rows = 60;
+        const waveWidth = 1.2;
+        const waveHeight = 0.8;
+        const speed = 0.015;
+        let time = 0;
+
+        // Массив точек для волн
+        let particles = [];
+        for (let i = 0; i < cols; i++) {
+            particles[i] = [];
+            for (let j = 0; j < rows; j++) {
+                particles[i][j] = {
+                    x: 0,
+                    y: 0,
+                    baseY: 0,
+                    offset: Math.random() * 100,
+                };
+            }
+        }
+
+        // Отслеживание мыши (движение)
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        document.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            if (touch) {
+                mouseX = touch.clientX;
+                mouseY = touch.clientY;
+            }
+        });
+
+        function drawWaves() {
+            ctx.clearRect(0, 0, width, height);
+
+            const spacingX = width / (cols - 1);
+            const spacingY = height / (rows - 1);
+
+            // Обновление и рисование волн
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    const x = (i / (cols - 1)) * width;
+                    const y = (j / (rows - 1)) * height;
+
+                    // Основная волна (синус + косинус для сложного движения)
+                    let wave = Math.sin(i * waveWidth + time) * waveHeight * 2 +
+                               Math.cos(j * 0.6 + time * 0.7) * 1.5 +
+                               Math.sin((i + j) * 0.4 + time * 0.5) * 1.2;
+
+                    // Влияние мыши (притяжение/отталкивание)
+                    const dx = x - mouseX;
+                    const dy = y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        const force = (200 - dist) / 200 * 8;
+                        wave += force * 1.2;
+                    }
+
+                    const offsetY = wave * 3.5;
+
+                    // Рисуем светящиеся точки
+                    const alpha = 0.08 + 0.06 * Math.sin(i * 0.3 + j * 0.2 + time * 0.5);
+                    ctx.beginPath();
+                    ctx.arc(x, y + offsetY, 1.8 + 0.8 * Math.sin(time * 0.5 + i + j), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(100, 180, 255, ${alpha})`;
+                    ctx.fill();
+
+                    // Рисуем линии (сеть волн)
+                    if (i < cols - 1 && j < rows - 1) {
+                        const nextX = ((i + 1) / (cols - 1)) * width;
+                        const nextY = ((j + 1) / (rows - 1)) * height;
+                        const waveNextX = Math.sin((i + 1) * waveWidth + time) * waveHeight * 2 +
+                                          Math.cos(j * 0.6 + time * 0.7) * 1.5 +
+                                          Math.sin((i + 1 + j) * 0.4 + time * 0.5) * 1.2;
+                        const waveNextY = Math.sin(i * waveWidth + time) * waveHeight * 2 +
+                                          Math.cos((j + 1) * 0.6 + time * 0.7) * 1.5 +
+                                          Math.sin((i + j + 1) * 0.4 + time * 0.5) * 1.2;
+
+                        const offX = waveNextX * 3.5;
+                        const offY = waveNextY * 3.5;
+
+                        // Линии по горизонтали
+                        ctx.beginPath();
+                        ctx.moveTo(x, y + offsetY);
+                        ctx.lineTo(nextX, y + offX);
+                        ctx.strokeStyle = `rgba(80, 150, 220, ${0.04 + 0.02 * Math.sin(time * 0.3 + i + j)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+
+                        // Линии по вертикали
+                        ctx.beginPath();
+                        ctx.moveTo(x, y + offsetY);
+                        ctx.lineTo(x, (y + spacingY) + offY);
+                        ctx.strokeStyle = `rgba(80, 150, 220, ${0.04 + 0.02 * Math.cos(time * 0.3 + i + j)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            time += speed;
+            requestAnimationFrame(drawWaves);
+        }
+
+        drawWaves();
+    </script>
 </body>
 </html>
