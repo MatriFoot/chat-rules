@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Правила чата ✦ Аура-эстетика</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b0914;
+            padding: 2rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== ФОНОВЫЕ СВЕЧЕНИЯ ===== */
+        .glow-1 {
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(200, 140, 255, 0.12) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+        }
+        .glow-2 {
+            position: fixed;
+            width: 40vw;
+            height: 40vw;
+            bottom: -5%;
+            right: -5%;
+            background: radial-gradient(circle, rgba(255, 180, 200, 0.10) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+            animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
+        }
+        .glow-3 {
+            position: fixed;
+            width: 30vw;
+            height: 30vw;
+            top: 40%;
+            left: 50%;
+            background: radial-gradient(circle, rgba(150, 200, 255, 0.06) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+            animation: pulseGlow 12s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            100% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* ===== ПАРЯЩИЕ ЧАСТИЦЫ ===== */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(220, 180, 255, 0.20), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(2px);
+            animation: floatParticle 16s infinite alternate ease-in-out;
+        }
+        .particle:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 18s; }
+        .particle:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 22s; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 14s; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 20s; animation-delay: 1s; }
+        .particle:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 24s; animation-delay: 3s; }
+        .particle:nth-child(6) { width: 7px; height: 7px; top: 25%; left: 80%; animation-duration: 16s; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 9px; height: 9px; bottom: 40%; left: 3%; animation-duration: 19s; animation-delay: 0.5s; }
+        .particle:nth-child(8) { width: 4px; height: 4px; top: 55%; left: 90%; animation-duration: 21s; animation-delay: 2.5s; }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
+            100% { transform: translate(60px, -80px) scale(2.5) rotate(140deg); opacity: 0.5; }
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            width: 100%;
+            background: rgba(18, 14, 30, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 3rem 2.5rem 2.5rem;
+            border: 1px solid rgba(220, 180, 255, 0.15);
+            box-shadow: 0 0 80px rgba(180, 120, 255, 0.05), inset 0 0 80px rgba(220, 180, 255, 0.02);
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ===== ДЕКОРАТИВНАЯ РАМКА (свечение) ===== */
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(200, 160, 255, 0.2), rgba(255, 180, 200, 0.1), rgba(160, 200, 255, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ===== УГЛЫ (аура-акценты) ===== */
+        .corner {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-color: rgba(200, 160, 255, 0.2);
+            border-style: solid;
+            border-width: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: cornerAppear 1.5s ease 0.3s both;
+        }
+        .corner-tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
+        .corner-tr { top: 14px; right: 14px; border-top-width: 2px; border-right-width: 2px; }
+        .corner-bl { bottom: 14px; left: 14px; border-bottom-width: 2px; border-left-width: 2px; }
+        .corner-br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
+        @keyframes cornerAppear {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+
+        /* ===== ЗАГОЛОВОК ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .header .ornament {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+        .header .ornament .line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200, 160, 255, 0.6), transparent);
+        }
+        .header .ornament .diamond {
+            color: rgba(200, 160, 255, 0.7);
+            font-size: 1.2rem;
+            font-weight: 200;
+            letter-spacing: 4px;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 3.6rem;
+            letter-spacing: 0.06em;
+            color: #f0e8ff;
+            text-shadow: 0 0 40px rgba(180, 140, 255, 0.15);
+            line-height: 1.1;
+        }
+        .header h1 em {
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(135deg, #e8d0ff, #d4b0ff, #c090ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(200, 160, 255, 0.2);
+        }
+        .header .sub {
+            font-weight: 200;
+            font-size: 1rem;
+            letter-spacing: 6px;
+            color: #a090b0;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        /* ===== РАЗДЕЛИТЕЛЬ ===== */
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200, 160, 255, 0.4), transparent);
+            margin: 2rem auto;
+            opacity: 0.5;
+        }
+
+        /* ===== СПИСОК ПРАВИЛ ===== */
+        .rules {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+
+        .rule {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 1.2rem 1.6rem;
+            border-left: 2px solid rgba(200, 160, 255, 0.15);
+            transition: 0.3s ease;
+        }
+        .rule:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-left-color: rgba(200, 160, 255, 0.4);
+        }
+
+        .rule .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #e8d0ff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.3rem;
+        }
+        .rule .title .num {
+            font-weight: 200;
+            font-size: 1rem;
+            color: rgba(200, 160, 255, 0.4);
+            letter-spacing: 2px;
+        }
+        .rule .text {
+            font-weight: 300;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #c8b8d8;
+            padding-left: 1.8rem;
+        }
+        .rule .text strong {
+            color: #e8d0ff;
+            font-weight: 400;
+        }
+
+        /* ===== ВЫХОД ИЗ ФЛУДА ===== */
+        .exit-block {
+            margin-top: 2.5rem;
+            padding: 1.6rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(200, 160, 255, 0.08);
+        }
+        .exit-block h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: #e8d0ff;
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+        .exit-block p {
+            font-weight: 300;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #c8b8d8;
+            text-align: center;
+        }
+        .exit-block .example {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #d4c0e8;
+            border-left: 2px solid rgba(200, 160, 255, 0.2);
+        }
+
+        /* ===== ФУТЕР ===== */
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(200, 160, 255, 0.08);
+            font-weight: 200;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: #6a5a7a;
+            text-transform: uppercase;
+        }
+        .footer span {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #8a7a9a;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 640px) {
+            body { padding: 1rem; }
+            .container { padding: 2rem 1.2rem; border-radius: 32px; }
+            .corner { width: 24px; height: 24px; }
+            .corner-tl { top: 10px; left: 10px; }
+            .corner-tr { top: 10px; right: 10px; }
+            .corner-bl { bottom: 10px; left: 10px; }
+            .corner-br { bottom: 10px; right: 10px; }
+            .header h1 { font-size: 2.6rem; }
+            .header .sub { font-size: 0.75rem; letter-spacing: 4px; }
+            .rule { padding: 1rem; }
+            .rule .title { font-size: 1.1rem; }
+            .rule .text { font-size: 0.85rem; padding-left: 0.8rem; }
+            .exit-block { padding: 1.2rem; }
+            .exit-block h3 { font-size: 1.3rem; }
+            .header .ornament .line { width: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Фоновые свечения -->
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+    <div class="glow-3"></div>
+
+    <!-- Частицы -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <div class="container">
+        <!-- Углы -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <!-- Шапка -->
+        <div class="header">
+            <div class="ornament">
+                <span class="line"></span>
+                <span class="diamond">✦</span>
+                <span class="line"></span>
+            </div>
+            <h1>
+                <em>Правила</em> чата
+            </h1>
+            <p class="sub">сохраняй ауру ✦ будь в потоке</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Список правил -->
+        <div class="rules">
+            <div class="rule">
+                <div class="title"><span class="num">01.</span> СПАМ</div>
+                <div class="text">3+ сообщений в минуту (бессмысленный текст, одинаковые стикеры, голосовые-пустышки) — <strong>мут 5–15 мин</strong> или <strong>варн</strong>.<br />Бессмысленный набор символов, повторяющиеся буквы, засорение чата — <strong>мут 10–30 мин</strong>, при повторе — <strong>варн</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">02.</span> КОНФЛИКТЫ И ПРОВОКАЦИИ</div>
+                <div class="text">Публичные ссоры — <strong>варн</strong> или <strong>мут 10–40 мин</strong> каждому.<br />Масштабная перепалка (3+ лиц) — <strong>бессрочный варн</strong> зачинщику, остальным — по ситуации.<br />Провокации, троллинг, подстрекательство — <strong>мут 30–60 мин</strong> или <strong>варн</strong>; повтор — <strong>бессрочный варн</strong> или <strong>бан</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">03.</span> ОСКОРБЛЕНИЯ И БУЛЛИНГ</div>
+                <div class="text">Прямые оскорбления, унижение, травля (включая расовые, гендерные, национальные признаки) — <strong>варн</strong> или <strong>мут 10–40 мин</strong>.<br />Пассивная агрессия, токсичные намёки, обесценивание, унизительные шутки — <strong>бессрочный варн</strong> или <strong>мут 30–60 мин</strong>; при повторении — <strong>бан</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">04.</span> НЕАКТИВНОСТЬ</div>
+                <div class="text">Отсутствие активности более 6 дней без уведомления или реста — <strong>кик</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">05.</span> СЛИВ ССЫЛОК В РЕЙД-КАНАЛЫ</div>
+                <div class="text">Моментальный <strong>кик</strong> и <strong>бан</strong> без права восстановления.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">06.</span> ДОКСИНГ</div>
+                <div class="text">Разглашение личных данных без согласия — <strong>2 варна</strong>, в случае продолжения — <strong>бан</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">07.</span> РЕКЛАМА И ПИАР</div>
+                <div class="text">Сторонние каналы, флуды, беседы, внешние ресурсы без согласования с админами — <strong>варн</strong> или <strong>мут 10–20 мин</strong> с удалением рекламы.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">08.</span> КОНТЕНТ 18+</div>
+                <div class="text">Порнография, откровенные материалы, ссылки на них — <strong>варн</strong>, при продолжении — <strong>бан</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">09.</span> НАЦИЗМ, ЭКСТРЕМИЗМ, РАЗЖИГАНИЕ НЕНАВИСТИ</div>
+                <div class="text">Пропаганда нацистской символики, оправдание фашизма, призывы к ненависти — <strong>бан без обжалования</strong> и права возвращения.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">10.</span> ПОЛИТИКА</div>
+                <div class="text">Острые политические темы, провокационный контент, предвыборная агитация — <strong>устное предупреждение</strong>, затем <strong>мут 10–30 мин</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">11.</span> НЕУМЕСТНЫЙ ФЛИРТ И ДОМОГАТЕЛЬСТВА</div>
+                <div class="text">Навязчивый флирт, сексуализированные комментарии, преследование без согласия — <strong>варн</strong> или <strong>мут 20–50 мин</strong>; повтор — <strong>бессрочный варн</strong>, далее <strong>бан</strong>.<br />Создание систематически некомфортной атмосферы — усиление до <strong>бессрочного бана</strong>.</div>
+            </div>
+            <div class="rule">
+                <div class="title"><span class="num">12.</span> ОБХОД НАКАЗАНИЙ И МУЛЬТИАККАУНТИНГ</div>
+                <div class="text">Создание новых акков для обхода блокировки — <strong>бессрочный бан</strong> всех связанных аккаунтов.</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Порядок выхода из флуда -->
+        <div class="exit-block">
+            <h3>☾ ˖ ࣪ ✦ ПОРЯДОК ВЫХОДА ИЗ ФЛУДА</h3>
+            <p>Перед выходом из чата участник обязан:</p>
+            <p style="margin-top: 0.5rem;"><strong>1.</strong> Упомянуть владельца флуда или совладельца.<br /><strong>2.</strong> Указать причину (по желанию, можно в лс).</p>
+            <div class="example">
+                <strong>Пример:</strong><br />
+                Роль: Доктор Стрэндж<br />
+                Причина: отсутствие свободного времени.
+            </div>
+        </div>
+
+        <!-- Футер -->
+        <div class="footer">
+            <span>нарушил → получил → понял → исправился</span> &nbsp;✦&nbsp; <span>сохраняй ауру</span>
+        </div>
+    </div>
+
+</body>
+</html>
