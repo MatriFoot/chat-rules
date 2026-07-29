@@ -24,32 +24,16 @@
             overflow-x: hidden;
         }
 
-        /* ===== ФОНОВЫЙ ГРАДИЕНТ С АНИМАЦИЕЙ ===== */
-        .bg-gradient {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            background: linear-gradient(135deg, #0a0b12 0%, #141a2e 30%, #0d1224 60%, #0a0b12 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 12s ease-in-out infinite alternate;
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* ===== СВЕЧЕНИЯ ===== */
+        /* ===== ФОНОВЫЕ СВЕЧЕНИЯ (без анимации) ===== */
         .glow-1 {
             position: fixed;
             width: 50vw;
             height: 50vw;
             top: -10%;
             left: -10%;
-            background: radial-gradient(circle, rgba(60, 100, 200, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(60, 100, 200, 0.12) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
-            animation: pulseGlow 8s ease-in-out infinite alternate;
         }
         .glow-2 {
             position: fixed;
@@ -57,36 +41,30 @@
             height: 40vw;
             bottom: -5%;
             right: -5%;
-            background: radial-gradient(circle, rgba(30, 80, 180, 0.10) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(30, 80, 180, 0.08) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
-            animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
-        }
-        @keyframes pulseGlow {
-            0% { opacity: 0.3; transform: scale(0.9); }
-            100% { opacity: 0.7; transform: scale(1.1); }
         }
 
-        /* ===== ПАРЯЩИЕ ИСКРЫ ===== */
+        /* ===== ПАРЯЩИЕ ИСКРЫ (лёгкие) ===== */
         .spark {
             position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(180, 220, 255, 0.3), transparent 70%);
+            background: radial-gradient(circle, rgba(180, 220, 255, 0.2), transparent 70%);
             pointer-events: none;
             z-index: 0;
             filter: blur(1px);
-            animation: floatSpark var(--duration) infinite alternate ease-in-out;
+            animation: floatSpark 20s infinite alternate ease-in-out;
         }
-        .spark:nth-child(1) { --duration: 18s; width: 6px; height: 6px; top: 10%; left: 5%; animation-delay: 0s; }
-        .spark:nth-child(2) { --duration: 22s; width: 10px; height: 10px; bottom: 15%; right: 8%; animation-delay: 2s; }
-        .spark:nth-child(3) { --duration: 16s; width: 4px; height: 4px; top: 45%; right: 2%; animation-delay: 4s; }
-        .spark:nth-child(4) { --duration: 20s; width: 8px; height: 8px; bottom: 20%; left: 10%; animation-delay: 1s; }
-        .spark:nth-child(5) { --duration: 24s; width: 5px; height: 5px; top: 70%; left: 60%; animation-delay: 3s; }
-        .spark:nth-child(6) { --duration: 19s; width: 7px; height: 7px; top: 30%; left: 90%; animation-delay: 5s; }
-        .spark:nth-child(7) { --duration: 21s; width: 9px; height: 9px; bottom: 30%; left: 3%; animation-delay: 0.5s; }
+        .spark:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 18s; }
+        .spark:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 22s; animation-delay: 2s; }
+        .spark:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 16s; animation-delay: 4s; }
+        .spark:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 20s; animation-delay: 1s; }
+        .spark:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 24s; animation-delay: 3s; }
+        .spark:nth-child(6) { width: 7px; height: 7px; top: 30%; left: 90%; animation-duration: 19s; animation-delay: 5s; }
         @keyframes floatSpark {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
-            100% { transform: translate(60px, -80px) scale(2.5) rotate(160deg); opacity: 0.6; }
+            100% { transform: translate(50px, -70px) scale(2) rotate(140deg); opacity: 0.5; }
         }
 
         /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
@@ -96,16 +74,16 @@
             max-width: 850px;
             width: 100%;
             background: rgba(12, 14, 26, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 48px;
             padding: 3rem 2.5rem 2.5rem;
-            border: 1px solid rgba(100, 150, 220, 0.12);
-            box-shadow: 0 0 80px rgba(60, 120, 220, 0.04), inset 0 0 80px rgba(60, 120, 220, 0.02);
-            animation: containerFade 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(100, 150, 220, 0.1);
+            box-shadow: 0 0 80px rgba(60, 120, 220, 0.03);
+            animation: containerFade 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes containerFade {
-            0% { opacity: 0; transform: translateY(40px) scale(0.96); }
+            0% { opacity: 0; transform: translateY(30px) scale(0.97); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
@@ -116,18 +94,13 @@
             inset: -3px;
             border-radius: 50px;
             padding: 2px;
-            background: linear-gradient(135deg, rgba(100, 160, 255, 0.2), rgba(60, 120, 220, 0.05), rgba(100, 160, 255, 0.2));
+            background: linear-gradient(135deg, rgba(100, 160, 255, 0.15), rgba(60, 120, 220, 0.05), rgba(100, 160, 255, 0.15));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
             z-index: -1;
-            animation: borderPulse 4s ease-in-out infinite alternate;
-        }
-        @keyframes borderPulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.8; }
         }
 
         /* ===== УГЛЫ ===== */
@@ -135,7 +108,7 @@
             position: absolute;
             width: 36px;
             height: 36px;
-            border-color: rgba(100, 160, 255, 0.25);
+            border-color: rgba(100, 160, 255, 0.2);
             border-style: solid;
             border-width: 0;
             pointer-events: none;
@@ -148,29 +121,27 @@
         .corner-br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
         @keyframes cornerAppear {
             0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.4; transform: scale(1); }
         }
 
         /* ===== ШАПКА ===== */
         .header {
             text-align: center;
             margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
-
-        /* Орнамент с анимацией */
         .ornament {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.8rem;
             margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
         }
         .ornament .line {
             width: 60px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.5), transparent);
             position: relative;
         }
         .ornament .line::after {
@@ -194,14 +165,8 @@
             font-size: 1.2rem;
             font-weight: 200;
             letter-spacing: 4px;
-            animation: diamondGlow 3s ease-in-out infinite alternate;
-        }
-        @keyframes diamondGlow {
-            0% { opacity: 0.3; text-shadow: 0 0 10px rgba(100, 160, 255, 0.1); }
-            100% { opacity: 0.8; text-shadow: 0 0 30px rgba(100, 160, 255, 0.3); }
         }
 
-        /* Заголовок с анимацией букв */
         .header h1 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 700;
@@ -209,7 +174,7 @@
             letter-spacing: 0.06em;
             color: #e0ecff;
             text-shadow: 0 0 40px rgba(60, 120, 220, 0.1);
-            line-height: 1.1;
+            line-height: 1.2;
         }
         .header h1 em {
             font-style: italic;
@@ -218,35 +183,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 60px rgba(60, 120, 220, 0.15);
         }
-        .header h1 .char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: charAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .header h1 .char:nth-child(1) { animation-delay: 0.10s; }
-        .header h1 .char:nth-child(2) { animation-delay: 0.16s; }
-        .header h1 .char:nth-child(3) { animation-delay: 0.22s; }
-        .header h1 .char:nth-child(4) { animation-delay: 0.28s; }
-        .header h1 .char:nth-child(5) { animation-delay: 0.34s; }
-        .header h1 .char:nth-child(6) { animation-delay: 0.40s; }
-        .header h1 .char:nth-child(7) { animation-delay: 0.46s; }
-        .header h1 .char:nth-child(8) { animation-delay: 0.52s; }
-        .header h1 .char:nth-child(9) { animation-delay: 0.58s; }
-        .header h1 .char:nth-child(10) { animation-delay: 0.64s; }
-        .header h1 .char:nth-child(11) { animation-delay: 0.70s; }
-        .header h1 .char:nth-child(12) { animation-delay: 0.76s; }
-        .header h1 .char:nth-child(13) { animation-delay: 0.82s; }
-        .header h1 .char:nth-child(14) { animation-delay: 0.88s; }
-        .header h1 .char:nth-child(15) { animation-delay: 0.94s; }
-        .header h1 .char:nth-child(16) { animation-delay: 1.00s; }
-        @keyframes charAppear {
-            0% { opacity: 0; transform: translateY(30px) rotateX(-10deg); }
-            100% { opacity: 1; transform: translateY(0) rotateX(0); }
-        }
-
         .header .sub {
             font-weight: 200;
             font-size: 1rem;
@@ -258,9 +195,9 @@
             font-style: italic;
             font-weight: 400;
             letter-spacing: 3px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 1.2s forwards;
+            opacity: 0.7;
         }
+
         @keyframes fadeInUp {
             0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -272,12 +209,7 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.3), transparent);
             margin: 2rem auto;
-            opacity: 0.3;
-            animation: dividerPulse 4s ease-in-out infinite alternate;
-        }
-        @keyframes dividerPulse {
-            0% { opacity: 0.2; transform: scaleX(0.9); }
-            100% { opacity: 0.6; transform: scaleX(1.1); }
+            opacity: 0.4;
         }
 
         /* ===== СПИСОК ПРАВИЛ ===== */
@@ -292,9 +224,9 @@
             border-radius: 20px;
             padding: 1rem 1.6rem;
             border-left: 2px solid rgba(100, 160, 255, 0.10);
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 0.3s ease;
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateX(-20px);
             animation: ruleSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .rule:nth-child(1) { animation-delay: 1.3s; }
@@ -310,15 +242,14 @@
         .rule:nth-child(11) { animation-delay: 2.3s; }
         .rule:nth-child(12) { animation-delay: 2.4s; }
         @keyframes ruleSlide {
-            0% { opacity: 0; transform: translateX(-30px); }
+            0% { opacity: 0; transform: translateX(-20px); }
             100% { opacity: 1; transform: translateX(0); }
         }
 
         .rule:hover {
             background: rgba(255, 255, 255, 0.05);
-            border-left-color: rgba(100, 160, 255, 0.5);
-            transform: translateX(8px) scale(1.01);
-            box-shadow: 0 0 40px rgba(60, 120, 220, 0.04);
+            border-left-color: rgba(100, 160, 255, 0.4);
+            transform: translateX(5px);
         }
 
         .rule .title {
@@ -383,11 +314,9 @@
             font-style: italic;
             color: #c0d4f0;
             border-left: 2px solid rgba(100, 160, 255, 0.2);
-            transition: 0.3s ease;
         }
         .exit-block .example:hover {
             background: rgba(255, 255, 255, 0.06);
-            border-left-color: rgba(100, 160, 255, 0.5);
         }
 
         /* ===== ФУТЕР ===== */
@@ -436,12 +365,9 @@
 </head>
 <body>
 
-    <div class="bg-gradient"></div>
-
     <div class="glow-1"></div>
     <div class="glow-2"></div>
 
-    <div class="spark"></div>
     <div class="spark"></div>
     <div class="spark"></div>
     <div class="spark"></div>
@@ -461,11 +387,7 @@
                 <span class="diamond">✦</span>
                 <span class="line"></span>
             </div>
-            <h1>
-                <span class="char">П</span><span class="char">р</span><span class="char">а</span><span class="char">в</span><span class="char">и</span><span class="char">л</span><span class="char">а</span>
-                <span class="char"> </span>
-                <span class="char"><em>Ф</em></span><span class="char"><em>л</em></span><span class="char"><em>у</em></span><span class="char"><em>д</em></span><span class="char"><em>а</em></span>
-            </h1>
+            <h1>Правила <em>Флуда</em></h1>
             <p class="sub">Wizard's Library</p>
         </div>
 
