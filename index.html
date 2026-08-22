@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Правила Флуда · Wizard's Library</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <title>lostlouls flood · Правила</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -17,69 +17,75 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0a0b12;
+            background: #0d0b06;
             padding: 2rem 1.5rem;
             font-family: 'Inter', sans-serif;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* ===== ФОНОВЫЕ СВЕЧЕНИЯ (без анимации) ===== */
-        .glow-1 {
+        /* ===== ЖЁЛТОЕ СВЕЧЕНИЕ ===== */
+        .glow {
             position: fixed;
-            width: 50vw;
-            height: 50vw;
+            width: 60vw;
+            height: 60vw;
             top: -10%;
-            left: -10%;
-            background: radial-gradient(circle, rgba(60, 100, 200, 0.12) 0%, transparent 70%);
+            right: -10%;
+            background: radial-gradient(circle, rgba(255, 215, 100, 0.12) 0%, transparent 70%);
             filter: blur(100px);
             z-index: 0;
+            animation: pulseGlow 6s ease-in-out infinite alternate;
         }
-        .glow-2 {
+        .glow-left {
             position: fixed;
             width: 40vw;
             height: 40vw;
-            bottom: -5%;
-            right: -5%;
-            background: radial-gradient(circle, rgba(30, 80, 180, 0.08) 0%, transparent 70%);
-            filter: blur(100px);
+            bottom: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(255, 200, 50, 0.08) 0%, transparent 70%);
+            filter: blur(80px);
             z-index: 0;
+            animation: pulseGlow 8s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.2; transform: scale(0.9); }
+            100% { opacity: 0.6; transform: scale(1.1); }
         }
 
-        /* ===== ПАРЯЩИЕ ИСКРЫ (лёгкие) ===== */
+        /* ===== ПЛАВАЮЩИЕ ИСКРЫ (золотые) ===== */
         .spark {
             position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(180, 220, 255, 0.2), transparent 70%);
+            background: radial-gradient(circle, rgba(255, 215, 100, 0.25), transparent 70%);
             pointer-events: none;
             z-index: 0;
-            filter: blur(1px);
-            animation: floatSpark 20s infinite alternate ease-in-out;
+            filter: blur(2px);
+            animation: floatSpark 18s infinite alternate ease-in-out;
         }
-        .spark:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 18s; }
-        .spark:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 22s; animation-delay: 2s; }
+        .spark:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 20s; }
+        .spark:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 24s; animation-delay: 2s; }
         .spark:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 16s; animation-delay: 4s; }
-        .spark:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 20s; animation-delay: 1s; }
-        .spark:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 24s; animation-delay: 3s; }
+        .spark:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 22s; animation-delay: 1s; }
+        .spark:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 26s; animation-delay: 3s; }
         .spark:nth-child(6) { width: 7px; height: 7px; top: 30%; left: 90%; animation-duration: 19s; animation-delay: 5s; }
         @keyframes floatSpark {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
-            100% { transform: translate(50px, -70px) scale(2) rotate(140deg); opacity: 0.5; }
+            100% { transform: translate(50px, -70px) scale(2.5) rotate(150deg); opacity: 0.6; }
         }
 
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+        /* ===== КОНТЕЙНЕР ===== */
         .container {
             position: relative;
             z-index: 1;
             max-width: 850px;
             width: 100%;
-            background: rgba(12, 14, 26, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(20, 18, 12, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 48px;
             padding: 3rem 2.5rem 2.5rem;
-            border: 1px solid rgba(100, 150, 220, 0.1);
-            box-shadow: 0 0 80px rgba(60, 120, 220, 0.03);
+            border: 1px solid rgba(255, 215, 100, 0.15);
+            box-shadow: 0 0 80px rgba(255, 215, 100, 0.03), inset 0 0 80px rgba(255, 215, 100, 0.02);
             animation: containerFade 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes containerFade {
@@ -87,14 +93,14 @@
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ===== ДЕКОРАТИВНАЯ РАМКА ===== */
+        /* ===== ДЕКОРАТИВНАЯ РАМКА (золотая) ===== */
         .container::before {
             content: '';
             position: absolute;
             inset: -3px;
             border-radius: 50px;
             padding: 2px;
-            background: linear-gradient(135deg, rgba(100, 160, 255, 0.15), rgba(60, 120, 220, 0.05), rgba(100, 160, 255, 0.15));
+            background: linear-gradient(135deg, rgba(255, 215, 100, 0.3), rgba(255, 200, 50, 0.1), rgba(255, 215, 100, 0.3));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -108,7 +114,7 @@
             position: absolute;
             width: 36px;
             height: 36px;
-            border-color: rgba(100, 160, 255, 0.2);
+            border-color: rgba(255, 215, 100, 0.25);
             border-style: solid;
             border-width: 0;
             pointer-events: none;
@@ -121,7 +127,7 @@
         .corner-br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
         @keyframes cornerAppear {
             0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(1); }
         }
 
         /* ===== ШАПКА ===== */
@@ -141,7 +147,7 @@
         .ornament .line {
             width: 60px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.5), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 100, 0.6), transparent);
             position: relative;
         }
         .ornament .line::after {
@@ -151,7 +157,7 @@
             left: 50%;
             width: 6px;
             height: 6px;
-            background: rgba(100, 160, 255, 0.3);
+            background: rgba(255, 215, 100, 0.4);
             border-radius: 50%;
             transform: translateX(-50%);
             animation: dotPulse 3s ease-in-out infinite;
@@ -161,43 +167,48 @@
             50% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
         }
         .ornament .diamond {
-            color: rgba(100, 160, 255, 0.5);
+            color: rgba(255, 215, 100, 0.6);
             font-size: 1.2rem;
             font-weight: 200;
             letter-spacing: 4px;
+            animation: diamondGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes diamondGlow {
+            0% { opacity: 0.3; text-shadow: 0 0 10px rgba(255, 215, 100, 0.1); }
+            100% { opacity: 0.9; text-shadow: 0 0 30px rgba(255, 215, 100, 0.3); }
         }
 
         .header h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 3.6rem;
-            letter-spacing: 0.06em;
-            color: #e0ecff;
-            text-shadow: 0 0 40px rgba(60, 120, 220, 0.1);
+            font-size: 3.8rem;
+            letter-spacing: 0.04em;
+            color: #f5e6c8;
+            text-shadow: 0 0 40px rgba(255, 215, 100, 0.1);
             line-height: 1.2;
         }
         .header h1 em {
             font-style: italic;
-            font-weight: 400;
-            background: linear-gradient(135deg, #b0d0ff, #80b0ff, #6090ff);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd700, #f0c040, #ffaa00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 60px rgba(255, 215, 100, 0.2);
         }
         .header .sub {
             font-weight: 200;
-            font-size: 1rem;
+            font-size: 1.1rem;
             letter-spacing: 6px;
-            color: #7a8aa0;
+            color: #b8a080;
             text-transform: uppercase;
             margin-top: 0.3rem;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 400;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             opacity: 0.7;
         }
-
         @keyframes fadeInUp {
             0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -207,139 +218,102 @@
         .divider {
             width: 80px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(100, 160, 255, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 100, 0.3), transparent);
             margin: 2rem auto;
             opacity: 0.4;
         }
 
-        /* ===== СПИСОК ПРАВИЛ ===== */
+        /* ===== ПРАВИЛА ===== */
         .rules {
             display: flex;
             flex-direction: column;
-            gap: 1.4rem;
+            gap: 1.6rem;
         }
 
         .rule {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 215, 100, 0.03);
             border-radius: 20px;
-            padding: 1rem 1.6rem;
-            border-left: 2px solid rgba(100, 160, 255, 0.10);
+            padding: 1.2rem 1.8rem;
+            border-left: 3px solid rgba(255, 215, 100, 0.15);
             transition: 0.3s ease;
             opacity: 0;
             transform: translateX(-20px);
             animation: ruleSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .rule:nth-child(1) { animation-delay: 1.3s; }
-        .rule:nth-child(2) { animation-delay: 1.4s; }
-        .rule:nth-child(3) { animation-delay: 1.5s; }
-        .rule:nth-child(4) { animation-delay: 1.6s; }
-        .rule:nth-child(5) { animation-delay: 1.7s; }
-        .rule:nth-child(6) { animation-delay: 1.8s; }
-        .rule:nth-child(7) { animation-delay: 1.9s; }
-        .rule:nth-child(8) { animation-delay: 2.0s; }
-        .rule:nth-child(9) { animation-delay: 2.1s; }
-        .rule:nth-child(10) { animation-delay: 2.2s; }
-        .rule:nth-child(11) { animation-delay: 2.3s; }
-        .rule:nth-child(12) { animation-delay: 2.4s; }
+        .rule:nth-child(1) { animation-delay: 1.1s; }
+        .rule:nth-child(2) { animation-delay: 1.2s; }
+        .rule:nth-child(3) { animation-delay: 1.3s; }
+        .rule:nth-child(4) { animation-delay: 1.4s; }
+        .rule:nth-child(5) { animation-delay: 1.5s; }
+        .rule:nth-child(6) { animation-delay: 1.6s; }
         @keyframes ruleSlide {
             0% { opacity: 0; transform: translateX(-20px); }
             100% { opacity: 1; transform: translateX(0); }
         }
 
         .rule:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-left-color: rgba(100, 160, 255, 0.4);
-            transform: translateX(5px);
+            background: rgba(255, 215, 100, 0.06);
+            border-left-color: #ffd700;
+            transform: translateX(6px);
+            box-shadow: 0 0 30px rgba(255, 215, 100, 0.03);
         }
 
         .rule .title {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 1.3rem;
-            color: #d0e4ff;
+            font-size: 1.4rem;
+            color: #f5e6c8;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
         }
         .rule .title .num {
             font-weight: 200;
             font-size: 1rem;
-            color: rgba(100, 160, 255, 0.4);
+            color: rgba(255, 215, 100, 0.4);
             letter-spacing: 2px;
         }
         .rule .text {
             font-weight: 300;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #b0c0d8;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #d4c8b0;
             padding-left: 1.8rem;
         }
         .rule .text strong {
-            color: #d0e4ff;
+            color: #ffd700;
             font-weight: 400;
         }
-
-        /* ===== ВЫХОД ИЗ ФЛУДА ===== */
-        .exit-block {
-            margin-top: 2.5rem;
-            padding: 1.6rem 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 24px;
-            border: 1px solid rgba(100, 160, 255, 0.06);
-            opacity: 0;
-            animation: fadeInUp 1s ease 2.6s forwards;
-        }
-        .exit-block h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            font-size: 1.6rem;
-            color: #d0e4ff;
-            text-align: center;
-            margin-bottom: 0.8rem;
-        }
-        .exit-block p {
+        .rule .text .highlight {
+            color: #f5e6c8;
             font-weight: 300;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #b0c0d8;
-            text-align: center;
-        }
-        .exit-block .example {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
-            margin-top: 1rem;
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: #c0d4f0;
-            border-left: 2px solid rgba(100, 160, 255, 0.2);
-        }
-        .exit-block .example:hover {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 215, 100, 0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
         }
 
-        /* ===== ФУТЕР ===== */
+        /* ===== ПОДВАЛ ===== */
         .footer {
             text-align: center;
             margin-top: 2.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(100, 160, 255, 0.06);
+            border-top: 1px solid rgba(255, 215, 100, 0.08);
             font-weight: 200;
             font-size: 0.75rem;
             letter-spacing: 3px;
-            color: #6a7a8a;
+            color: #7a6a5a;
             text-transform: uppercase;
             opacity: 0;
-            animation: fadeInUp 1s ease 3s forwards;
+            animation: fadeInUp 1s ease 2.5s forwards;
         }
         .footer span {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: #8a9ab0;
+            color: #b8a080;
         }
         .footer .separator {
-            color: rgba(100, 160, 255, 0.2);
+            color: rgba(255, 215, 100, 0.2);
             margin: 0 0.6rem;
         }
 
@@ -357,16 +331,14 @@
             .rule { padding: 0.8rem; }
             .rule .title { font-size: 1.1rem; }
             .rule .text { font-size: 0.85rem; padding-left: 0.8rem; }
-            .exit-block { padding: 1.2rem; }
-            .exit-block h3 { font-size: 1.3rem; }
             .ornament .line { width: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="glow-1"></div>
-    <div class="glow-2"></div>
+    <div class="glow"></div>
+    <div class="glow-left"></div>
 
     <div class="spark"></div>
     <div class="spark"></div>
@@ -387,82 +359,47 @@
                 <span class="diamond">✦</span>
                 <span class="line"></span>
             </div>
-            <h1>Правила <em>Флуда</em></h1>
-            <p class="sub">Wizard's Library</p>
+            <h1>lostlouls <em>flood</em></h1>
+            <p class="sub">свод правил · 13+</p>
         </div>
 
         <div class="divider"></div>
 
         <div class="rules">
             <div class="rule">
-                <div class="title"><span class="num">01.</span> СПАМ</div>
-                <div class="text">3+ сообщений в минуту (бессмысленный текст, одинаковые стикеры, голосовые-пустышки) — <strong>мут 5–15 мин</strong> или <strong>варн</strong>.<br />Бессмысленный набор символов, повторяющиеся буквы, засорение чата — <strong>мут 10–30 мин</strong>, при повторе — <strong>варн</strong>.</div>
+                <div class="title"><span class="num">01.</span> Возврат после бана</div>
+                <div class="text"><strong>После бана вернуться вы не сможете.</strong> Решение окончательное и обжалованию не подлежит.</div>
             </div>
             <div class="rule">
-                <div class="title"><span class="num">02.</span> КОНФЛИКТЫ И ПРОВОКАЦИИ</div>
-                <div class="text">Публичные ссоры — <strong>варн</strong> или <strong>мут 10–40 мин</strong> каждому.<br />Масштабная перепалка (3+ лиц) — <strong>бессрочный варн</strong> зачинщику, остальным — по ситуации.<br />Провокации, троллинг, подстрекательство — <strong>мут 30–60 мин</strong> или <strong>варн</strong>; повтор — <strong>бессрочный варн</strong> или <strong>бан</strong>.</div>
+                <div class="title"><span class="num">02.</span> Ссоры и оскорбления</div>
+                <div class="text">Ссоры и оскорбления без согласия или грубые обращения — <strong>запрещены</strong>. При ссоре мы ищем того, кто именно начал, и выдаём <span class="highlight">варн</span>.</div>
             </div>
             <div class="rule">
-                <div class="title"><span class="num">03.</span> ОСКОРБЛЕНИЯ И БУЛЛИНГ</div>
-                <div class="text">Прямые оскорбления, унижение, травля (включая расовые, гендерные, национальные признаки) — <strong>варн</strong> или <strong>мут 10–40 мин</strong>.<br />Пассивная агрессия, токсичные намёки, обесценивание, унизительные шутки — <strong>бессрочный варн</strong> или <strong>мут 30–60 мин</strong>; при повторении — <strong>бан</strong>.</div>
+                <div class="title"><span class="num">03.</span> Агрессия и буллинг</div>
+                <div class="text">Явная агрессия в сторону участника — <strong>запрещена</strong>. Выдаётся <span class="highlight">варн</span>. <em>Владелец не делит всех на любимчиков, олдов и т.д. (только в шуточном формате). Во флуде все равны.</em></div>
             </div>
             <div class="rule">
-                <div class="title"><span class="num">04.</span> НЕАКТИВНОСТЬ</div>
-                <div class="text">Отсутствие активности более 6 дней без уведомления или реста — <strong>кик</strong>.</div>
+                <div class="title"><span class="num">04.</span> Запрещённые темы и контент</div>
+                <div class="text">Обсуждение плохих тем (каннибализм, 18+ и т.д.) на полном серьёзе, <strong>18+ фотографии</strong>, слив чьей-то личной информации без согласия — <span class="highlight">варн</span> или <strong>бан</strong>.</div>
             </div>
             <div class="rule">
-                <div class="title"><span class="num">05.</span> СЛИВ ССЫЛОК В РЕЙД-КАНАЛЫ</div>
-                <div class="text">Моментальный <strong>кик</strong> и <strong>бан</strong> без права восстановления.</div>
+                <div class="title"><span class="num">05.</span> Спам</div>
+                <div class="text">За спам (5+ одинаковых сообщений, стикеров, гифок и т.д.) — <span class="highlight">варн</span>.</div>
             </div>
             <div class="rule">
-                <div class="title"><span class="num">06.</span> ДОКСИНГ</div>
-                <div class="text">Разглашение личных данных без согласия — <strong>2 варна</strong>, в случае продолжения — <strong>бан</strong>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">07.</span> РЕКЛАМА И ПИАР</div>
-                <div class="text">Сторонние каналы, флуды, беседы, внешние ресурсы без согласования с админами — <strong>варн</strong> или <strong>мут 10–20 мин</strong> с удалением рекламы.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">08.</span> КОНТЕНТ 18+</div>
-                <div class="text">Порнография, откровенные материалы, ссылки на них — <strong>варн</strong>, при продолжении — <strong>бан</strong>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">09.</span> НАЦИЗМ, ЭКСТРЕМИЗМ, РАЗЖИГАНИЕ НЕНАВИСТИ</div>
-                <div class="text">Пропаганда нацистской символики, оправдание фашизма, призывы к ненависти — <strong>бан без обжалования</strong> и права возвращения.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">10.</span> ПОЛИТИКА</div>
-                <div class="text">Острые политические темы, провокационный контент, предвыборная агитация — <strong>устное предупреждение</strong>, затем <strong>мут 10–30 мин</strong>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">11.</span> НЕУМЕСТНЫЙ ФЛИРТ И ДОМОГАТЕЛЬСТВА</div>
-                <div class="text">Навязчивый флирт, сексуализированные комментарии, преследование без согласия — <strong>варн</strong> или <strong>мут 20–50 мин</strong>; повтор — <strong>бессрочный варн</strong>, далее <strong>бан</strong>.<br />Создание систематически некомфортной атмосферы — усиление до <strong>бессрочного бана</strong>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">12.</span> ОБХОД НАКАЗАНИЙ И МУЛЬТИАККАУНТИНГ</div>
-                <div class="text">Создание новых акков для обхода блокировки — <strong>бессрочный бан</strong> всех связанных аккаунтов.</div>
+                <div class="title"><span class="num">06.</span> Общее правило</div>
+                <div class="text">Относитесь друг к другу с уважением. <strong>Администрация всегда на вашей стороне</strong>, если вы соблюдаете правила.</div>
             </div>
         </div>
 
         <div class="divider"></div>
 
-        <div class="exit-block">
-            <h3>☾ ˖ ࣪ ✦ ПОРЯДОК ВЫХОДА ИЗ ФЛУДА</h3>
-            <p>Перед выходом из чата участник обязан:</p>
-            <p style="margin-top: 0.5rem;"><strong>1.</strong> Упомянуть владельца флуда или совладельца.<br /><strong>2.</strong> Указать причину (по желанию, можно в лс).</p>
-            <div class="example">
-                <strong>Пример:</strong><br />
-                Роль: Доктор Стрэндж<br />
-                Причина: отсутствие свободного времени.
-            </div>
-        </div>
-
         <div class="footer">
             <span>нарушил → получил → понял → исправился</span>
             <span class="separator">✦</span>
-            <span>Wizard's Library</span>
+            <span>lostlouls flood</span>
         </div>
     </div>
 
 </body>
-    </html>
+</html>
