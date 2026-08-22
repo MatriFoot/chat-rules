@@ -4,73 +4,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>lostlouls flood · Правила</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0d0b06;
+            background: #0b0710;
             padding: 2rem 1.5rem;
             font-family: 'Inter', sans-serif;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* ===== ЖЁЛТОЕ СВЕЧЕНИЕ ===== */
-        .glow {
+        /* ===== АНИМИРОВАННЫЙ ФОН (переливающийся) ===== */
+        .bg {
             position: fixed;
-            width: 60vw;
-            height: 60vw;
-            top: -10%;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, #0b0710 0%, #1a0b2e 30%, #2d1045 60%, #0b0710 100%);
+            background-size: 400% 400%;
+            animation: bgShift 15s ease infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* ===== НЕОНОВЫЕ СВЕЧЕНИЯ ===== */
+        .glow-pink {
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
+            top: -20%;
             right: -10%;
-            background: radial-gradient(circle, rgba(255, 215, 100, 0.12) 0%, transparent 70%);
-            filter: blur(100px);
+            background: radial-gradient(circle, rgba(255, 0, 200, 0.15) 0%, transparent 70%);
+            filter: blur(120px);
             z-index: 0;
             animation: pulseGlow 6s ease-in-out infinite alternate;
         }
-        .glow-left {
+        .glow-purple {
             position: fixed;
             width: 40vw;
             height: 40vw;
-            bottom: -10%;
+            bottom: -20%;
             left: -10%;
-            background: radial-gradient(circle, rgba(255, 200, 50, 0.08) 0%, transparent 70%);
-            filter: blur(80px);
+            background: radial-gradient(circle, rgba(150, 0, 255, 0.12) 0%, transparent 70%);
+            filter: blur(120px);
             z-index: 0;
             animation: pulseGlow 8s ease-in-out infinite alternate-reverse;
         }
         @keyframes pulseGlow {
-            0% { opacity: 0.2; transform: scale(0.9); }
-            100% { opacity: 0.6; transform: scale(1.1); }
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* ===== ПЛАВАЮЩИЕ ИСКРЫ (золотые) ===== */
-        .spark {
+        /* ===== ПАРЯЩИЕ НЕОНОВЫЕ ЧАСТИЦЫ ===== */
+        .particle {
             position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 100, 0.25), transparent 70%);
+            background: radial-gradient(circle, rgba(255, 100, 200, 0.3), transparent 80%);
             pointer-events: none;
             z-index: 0;
-            filter: blur(2px);
-            animation: floatSpark 18s infinite alternate ease-in-out;
+            filter: blur(3px);
+            animation: floatParticle 15s infinite alternate ease-in-out;
         }
-        .spark:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 20s; }
-        .spark:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 24s; animation-delay: 2s; }
-        .spark:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 16s; animation-delay: 4s; }
-        .spark:nth-child(4) { width: 8px; height: 8px; bottom: 20%; left: 10%; animation-duration: 22s; animation-delay: 1s; }
-        .spark:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 26s; animation-delay: 3s; }
-        .spark:nth-child(6) { width: 7px; height: 7px; top: 30%; left: 90%; animation-duration: 19s; animation-delay: 5s; }
-        @keyframes floatSpark {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
-            100% { transform: translate(50px, -70px) scale(2.5) rotate(150deg); opacity: 0.6; }
+        .particle:nth-child(1) { width: 8px; height: 8px; top: 5%; left: 10%; animation-duration: 18s; }
+        .particle:nth-child(2) { width: 12px; height: 12px; bottom: 10%; right: 5%; animation-duration: 22s; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 6px; height: 6px; top: 40%; right: 15%; animation-duration: 14s; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 10px; height: 10px; bottom: 30%; left: 5%; animation-duration: 20s; animation-delay: 1s; }
+        .particle:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 50%; animation-duration: 24s; animation-delay: 3s; }
+        .particle:nth-child(6) { width: 15px; height: 15px; top: 20%; left: 70%; animation-duration: 16s; animation-delay: 5s; }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0.1; }
+            100% { transform: translate(80px, -100px) scale(2.5); opacity: 0.7; }
         }
 
         /* ===== КОНТЕЙНЕР ===== */
@@ -79,28 +90,30 @@
             z-index: 1;
             max-width: 850px;
             width: 100%;
-            background: rgba(20, 18, 12, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 48px;
+            background: rgba(10, 5, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 60px;
             padding: 3rem 2.5rem 2.5rem;
-            border: 1px solid rgba(255, 215, 100, 0.15);
-            box-shadow: 0 0 80px rgba(255, 215, 100, 0.03), inset 0 0 80px rgba(255, 215, 100, 0.02);
+            border: 1px solid rgba(255, 0, 200, 0.2);
+            box-shadow: 0 0 80px rgba(255, 0, 200, 0.05);
             animation: containerFade 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes containerFade {
-            0% { opacity: 0; transform: translateY(30px) scale(0.97); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+            0% { opacity: 0; transform: scale(0.95) rotateX(10deg); }
+            100% { opacity: 1; transform: scale(1) rotateX(0); }
         }
 
-        /* ===== ДЕКОРАТИВНАЯ РАМКА (золотая) ===== */
+        /* ===== НЕОНОВАЯ РАМКА (анимированная) ===== */
         .container::before {
             content: '';
             position: absolute;
-            inset: -3px;
-            border-radius: 50px;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(255, 215, 100, 0.3), rgba(255, 200, 50, 0.1), rgba(255, 215, 100, 0.3));
+            inset: -4px;
+            border-radius: 64px;
+            padding: 3px;
+            background: linear-gradient(135deg, #ff00aa, #aa00ff, #ff00aa, #aa00ff);
+            background-size: 300% 300%;
+            animation: borderGlow 4s ease-in-out infinite alternate;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -108,26 +121,30 @@
             pointer-events: none;
             z-index: -1;
         }
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; opacity: 0.4; }
+            100% { background-position: 100% 50%; opacity: 0.9; }
+        }
 
-        /* ===== УГЛЫ ===== */
+        /* ===== УГЛЫ С НЕОНОМ ===== */
         .corner {
             position: absolute;
-            width: 36px;
-            height: 36px;
-            border-color: rgba(255, 215, 100, 0.25);
+            width: 40px;
+            height: 40px;
+            border-color: rgba(255, 0, 200, 0.4);
             border-style: solid;
             border-width: 0;
             pointer-events: none;
             opacity: 0;
-            animation: cornerAppear 1.5s ease 0.5s forwards;
+            animation: cornerAppear 1.5s ease 0.6s forwards;
         }
-        .corner-tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
-        .corner-tr { top: 14px; right: 14px; border-top-width: 2px; border-right-width: 2px; }
-        .corner-bl { bottom: 14px; left: 14px; border-bottom-width: 2px; border-left-width: 2px; }
-        .corner-br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
+        .corner-tl { top: 16px; left: 16px; border-top-width: 3px; border-left-width: 3px; }
+        .corner-tr { top: 16px; right: 16px; border-top-width: 3px; border-right-width: 3px; }
+        .corner-bl { bottom: 16px; left: 16px; border-bottom-width: 3px; border-left-width: 3px; }
+        .corner-br { bottom: 16px; right: 16px; border-bottom-width: 3px; border-right-width: 3px; }
         @keyframes cornerAppear {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 0.5; transform: scale(1); }
+            0% { opacity: 0; transform: scale(0.5) rotate(45deg); }
+            100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
         }
 
         /* ===== ШАПКА ===== */
@@ -143,84 +160,84 @@
             align-items: center;
             gap: 0.8rem;
             margin-bottom: 1rem;
+            opacity: 0.6;
         }
         .ornament .line {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 100, 0.6), transparent);
-            position: relative;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff00aa, transparent);
+            animation: linePulse 2s ease-in-out infinite alternate;
         }
-        .ornament .line::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 215, 100, 0.4);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            animation: dotPulse 3s ease-in-out infinite;
-        }
-        @keyframes dotPulse {
-            0%, 100% { opacity: 0.2; transform: translateX(-50%) scale(0.8); }
-            50% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
+        @keyframes linePulse {
+            0% { opacity: 0.2; transform: scaleX(0.8); }
+            100% { opacity: 0.8; transform: scaleX(1.2); }
         }
         .ornament .diamond {
-            color: rgba(255, 215, 100, 0.6);
-            font-size: 1.2rem;
+            color: #ff00aa;
+            font-size: 1.4rem;
             font-weight: 200;
-            letter-spacing: 4px;
-            animation: diamondGlow 3s ease-in-out infinite alternate;
+            animation: diamondSpin 6s linear infinite;
         }
-        @keyframes diamondGlow {
-            0% { opacity: 0.3; text-shadow: 0 0 10px rgba(255, 215, 100, 0.1); }
-            100% { opacity: 0.9; text-shadow: 0 0 30px rgba(255, 215, 100, 0.3); }
+        @keyframes diamondSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 3.8rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 3.2rem;
             letter-spacing: 0.04em;
-            color: #f5e6c8;
-            text-shadow: 0 0 40px rgba(255, 215, 100, 0.1);
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 0, 200, 0.4);
             line-height: 1.2;
         }
-        .header h1 em {
-            font-style: italic;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffd700, #f0c040, #ffaa00);
+        .header h1 .highlight {
+            background: linear-gradient(135deg, #ff00aa, #aa00ff, #ff00aa);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 60px rgba(255, 215, 100, 0.2);
+            animation: gradShift 3s ease-in-out infinite alternate;
+        }
+        @keyframes gradShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         .header .sub {
             font-weight: 200;
-            font-size: 1.1rem;
+            font-size: 1rem;
             letter-spacing: 6px;
-            color: #b8a080;
+            color: #aa88cc;
             text-transform: uppercase;
             margin-top: 0.3rem;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 400;
             letter-spacing: 4px;
             opacity: 0.7;
+            animation: textPulse 3s ease-in-out infinite alternate;
+        }
+        @keyframes textPulse {
+            0% { opacity: 0.3; text-shadow: 0 0 10px rgba(255, 0, 200, 0.2); }
+            100% { opacity: 0.9; text-shadow: 0 0 30px rgba(255, 0, 200, 0.5); }
         }
         @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(15px); }
+            0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
         /* ===== РАЗДЕЛИТЕЛЬ ===== */
         .divider {
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 100, 0.3), transparent);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff00aa, #aa00ff, #ff00aa, transparent);
             margin: 2rem auto;
-            opacity: 0.4;
+            border-radius: 10px;
+            animation: dividerPulse 2s ease-in-out infinite alternate;
+        }
+        @keyframes dividerPulse {
+            0% { opacity: 0.2; transform: scaleX(0.9); }
+            100% { opacity: 0.8; transform: scaleX(1.2); }
         }
 
         /* ===== ПРАВИЛА ===== */
@@ -231,38 +248,39 @@
         }
 
         .rule {
-            background: rgba(255, 215, 100, 0.03);
-            border-radius: 20px;
+            background: rgba(255, 0, 200, 0.04);
+            border-radius: 24px;
             padding: 1.2rem 1.8rem;
-            border-left: 3px solid rgba(255, 215, 100, 0.15);
-            transition: 0.3s ease;
+            border-left: 4px solid rgba(255, 0, 200, 0.2);
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            transform: translateX(-20px);
-            animation: ruleSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateX(-30px) rotateY(-10deg);
+            animation: ruleSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .rule:nth-child(1) { animation-delay: 1.1s; }
-        .rule:nth-child(2) { animation-delay: 1.2s; }
-        .rule:nth-child(3) { animation-delay: 1.3s; }
-        .rule:nth-child(4) { animation-delay: 1.4s; }
-        .rule:nth-child(5) { animation-delay: 1.5s; }
-        .rule:nth-child(6) { animation-delay: 1.6s; }
+        .rule:nth-child(1) { animation-delay: 1.0s; }
+        .rule:nth-child(2) { animation-delay: 1.1s; }
+        .rule:nth-child(3) { animation-delay: 1.2s; }
+        .rule:nth-child(4) { animation-delay: 1.3s; }
+        .rule:nth-child(5) { animation-delay: 1.4s; }
+        .rule:nth-child(6) { animation-delay: 1.5s; }
+
         @keyframes ruleSlide {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% { opacity: 0; transform: translateX(-30px) rotateY(-10deg); }
+            100% { opacity: 1; transform: translateX(0) rotateY(0deg); }
         }
 
         .rule:hover {
-            background: rgba(255, 215, 100, 0.06);
-            border-left-color: #ffd700;
-            transform: translateX(6px);
-            box-shadow: 0 0 30px rgba(255, 215, 100, 0.03);
+            background: rgba(255, 0, 200, 0.08);
+            border-left-color: #ff00aa;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 0 40px rgba(255, 0, 200, 0.1);
         }
 
         .rule .title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 1.4rem;
-            color: #f5e6c8;
+            font-size: 1.2rem;
+            color: #f0e0ff;
             display: flex;
             align-items: center;
             gap: 0.6rem;
@@ -270,27 +288,27 @@
         }
         .rule .title .num {
             font-weight: 200;
-            font-size: 1rem;
-            color: rgba(255, 215, 100, 0.4);
+            font-size: 0.9rem;
+            color: rgba(255, 0, 200, 0.4);
             letter-spacing: 2px;
         }
         .rule .text {
             font-weight: 300;
             font-size: 1rem;
             line-height: 1.8;
-            color: #d4c8b0;
+            color: #c8b8d8;
             padding-left: 1.8rem;
         }
         .rule .text strong {
-            color: #ffd700;
+            color: #ff00aa;
             font-weight: 400;
         }
         .rule .text .highlight {
-            color: #f5e6c8;
-            font-weight: 300;
-            background: rgba(255, 215, 100, 0.08);
-            padding: 0.1rem 0.4rem;
-            border-radius: 6px;
+            color: #f0e0ff;
+            background: rgba(255, 0, 200, 0.1);
+            padding: 0.1rem 0.5rem;
+            border-radius: 8px;
+            font-weight: 400;
         }
 
         /* ===== ПОДВАЛ ===== */
@@ -298,38 +316,38 @@
             text-align: center;
             margin-top: 2.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 215, 100, 0.08);
+            border-top: 1px solid rgba(255, 0, 200, 0.1);
             font-weight: 200;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             letter-spacing: 3px;
-            color: #7a6a5a;
+            color: #8866aa;
             text-transform: uppercase;
             opacity: 0;
             animation: fadeInUp 1s ease 2.5s forwards;
         }
         .footer span {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: #b8a080;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            color: #aa88cc;
         }
         .footer .separator {
-            color: rgba(255, 215, 100, 0.2);
+            color: rgba(255, 0, 200, 0.3);
             margin: 0 0.6rem;
         }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 640px) {
             body { padding: 1rem; }
-            .container { padding: 2rem 1.2rem; border-radius: 32px; }
+            .container { padding: 2rem 1.2rem; border-radius: 40px; }
             .corner { width: 24px; height: 24px; }
             .corner-tl { top: 10px; left: 10px; }
             .corner-tr { top: 10px; right: 10px; }
             .corner-bl { bottom: 10px; left: 10px; }
             .corner-br { bottom: 10px; right: 10px; }
-            .header h1 { font-size: 2.6rem; }
-            .header .sub { font-size: 0.75rem; letter-spacing: 4px; }
+            .header h1 { font-size: 2.2rem; }
+            .header .sub { font-size: 0.7rem; letter-spacing: 4px; }
             .rule { padding: 0.8rem; }
-            .rule .title { font-size: 1.1rem; }
+            .rule .title { font-size: 1.0rem; }
             .rule .text { font-size: 0.85rem; padding-left: 0.8rem; }
             .ornament .line { width: 30px; }
         }
@@ -337,15 +355,16 @@
 </head>
 <body>
 
-    <div class="glow"></div>
-    <div class="glow-left"></div>
+    <div class="bg"></div>
+    <div class="glow-pink"></div>
+    <div class="glow-purple"></div>
 
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
 
     <div class="container">
         <div class="corner corner-tl"></div>
@@ -359,7 +378,7 @@
                 <span class="diamond">✦</span>
                 <span class="line"></span>
             </div>
-            <h1>lostlouls <em>flood</em></h1>
+            <h1>lostlouls <span class="highlight">flood</span></h1>
             <p class="sub">свод правил · 13+</p>
         </div>
 
@@ -402,4 +421,4 @@
     </div>
 
 </body>
-</html>
+    </html>
