@@ -15,20 +15,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0f0b06;
+            background: #0b0806;
             padding: 2rem 1rem;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-y: auto;
         }
+
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            background: rgba(20, 15, 8, 0.85);
-            backdrop-filter: blur(8px);
-            border-radius: 40px;
-            padding: 2.5rem 2rem;
-            border: 2px solid rgba(255, 200, 50, 0.3);
-            box-shadow: 0 0 60px rgba(255, 200, 50, 0.06);
+            background: rgba(20, 16, 12, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 56px;
+            padding: 3rem 2.5rem;
+            border: 1px solid rgba(255, 180, 50, 0.15);
+            box-shadow: 0 0 60px rgba(255, 180, 50, 0.03);
             animation: fadeUp 0.8s ease;
         }
         @keyframes fadeUp {
@@ -36,158 +37,182 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Шапка */
+        /* ===== ШАПКА ===== */
         .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .header .badge {
+            display: inline-block;
+            background: rgba(255, 180, 50, 0.08);
+            color: #ffb833;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 180, 50, 0.15);
+            margin-bottom: 0.8rem;
+            animation: pulseBadge 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes pulseBadge {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
         .header h1 {
-            font-weight: 900;
-            font-size: 3rem;
-            color: #fff3e0;
-            text-shadow: 0 0 20px rgba(255, 200, 0, 0.2);
+            font-weight: 800;
+            font-size: 3.6rem;
+            color: #f5eee0;
             letter-spacing: 2px;
+            line-height: 1.1;
         }
         .header h1 .gold {
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            background: linear-gradient(135deg, #ffd966, #e6a800);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .header .sub {
+        .header p {
+            color: #b8a088;
             font-weight: 300;
-            font-size: 0.9rem;
+            font-size: 1rem;
             letter-spacing: 6px;
-            color: #d4b080;
             text-transform: uppercase;
             margin-top: 0.2rem;
-            animation: pulseText 2.5s ease-in-out infinite alternate;
-        }
-        @keyframes pulseText {
-            0% { opacity: 0.4; }
-            100% { opacity: 1; }
+            opacity: 0.7;
         }
 
         .divider {
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd700, #ff8c00, transparent);
-            margin: 1.5rem auto;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffb833, #ff8c00);
+            margin: 1.8rem auto;
             border-radius: 10px;
-            animation: lineMove 3s linear infinite;
-        }
-        @keyframes lineMove {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-            background-size: 200% 100%;
         }
 
-        /* Правила */
-        .rule {
-            background: rgba(255, 200, 50, 0.04);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1.2rem;
-            border-left: 4px solid rgba(255, 200, 50, 0.2);
-            transition: 0.3s;
-            animation: slideIn 0.6s ease forwards;
+        /* ===== СЕТКА ПРАВИЛ (плитки) ===== */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 1.6rem 1.8rem;
+            border: 1px solid rgba(255, 180, 50, 0.06);
+            transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
             opacity: 0;
-            transform: translateX(-15px);
+            transform: translateY(20px);
+            animation: cardIn 0.6s ease forwards;
         }
-        .rule:nth-child(1) { animation-delay: 0.1s; }
-        .rule:nth-child(2) { animation-delay: 0.2s; }
-        .rule:nth-child(3) { animation-delay: 0.3s; }
-        .rule:nth-child(4) { animation-delay: 0.4s; }
-        .rule:nth-child(5) { animation-delay: 0.5s; }
-        .rule:nth-child(6) { animation-delay: 0.6s; }
+        .rule-card:nth-child(1) { animation-delay: 0.1s; }
+        .rule-card:nth-child(2) { animation-delay: 0.18s; }
+        .rule-card:nth-child(3) { animation-delay: 0.26s; }
+        .rule-card:nth-child(4) { animation-delay: 0.34s; }
+        .rule-card:nth-child(5) { animation-delay: 0.42s; }
+        .rule-card:nth-child(6) { animation-delay: 0.50s; }
 
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateX(-15px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-
-        .rule:hover {
-            background: rgba(255, 200, 50, 0.08);
-            border-left-color: #ffd700;
-            transform: translateX(5px);
+        @keyframes cardIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        .rule .title {
+        .rule-card:hover {
+            background: rgba(255, 180, 50, 0.06);
+            border-color: rgba(255, 180, 50, 0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 40px rgba(255, 180, 50, 0.04);
+        }
+
+        .rule-card .number {
+            font-size: 2.2rem;
+            font-weight: 200;
+            color: #ffb833;
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 0.2rem;
+            transition: 0.3s;
+        }
+        .rule-card:hover .number {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .rule-card .title {
             font-weight: 700;
             font-size: 1.2rem;
-            color: #ffd700;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.2rem;
+            color: #f5eee0;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.02em;
         }
-        .rule .title .num {
+        .rule-card .text {
             font-weight: 300;
-            font-size: 0.9rem;
-            color: rgba(255, 200, 50, 0.4);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d0c0b0;
         }
-        .rule .text {
-            font-weight: 300;
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #e0d0b8;
-            padding-left: 1.8rem;
-        }
-        .rule .text strong {
-            color: #ffd700;
+        .rule-card .text strong {
+            color: #ffb833;
             font-weight: 500;
         }
-        .rule .text .highlight {
+        .rule-card .text .highlight {
             color: #ff8c00;
-            background: rgba(255, 140, 0, 0.1);
+            background: rgba(255, 140, 0, 0.08);
             padding: 0.05rem 0.4rem;
             border-radius: 4px;
         }
 
-        /* Футер */
+        /* ===== ФУТЕР ===== */
         .footer {
             text-align: center;
-            margin-top: 2rem;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: #7a6a5a;
-            text-transform: uppercase;
-            border-top: 1px solid rgba(255, 200, 50, 0.08);
+            margin-top: 3rem;
             padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 180, 50, 0.06);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: #6a5a4a;
+            text-transform: uppercase;
         }
         .footer span {
-            color: #b89a6a;
+            color: #a08870;
             font-weight: 300;
         }
 
-        /* Золотые искры (анимация) */
+        /* ===== ЗОЛОТЫЕ ИСКРЫ ===== */
         .sparkle {
             position: fixed;
-            pointer-events: none;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent 80%);
-            filter: blur(1px);
+            background: radial-gradient(circle, rgba(255, 200, 100, 0.25), transparent 80%);
+            filter: blur(2px);
+            pointer-events: none;
             z-index: -1;
-            animation: floatSpark 12s infinite alternate ease-in-out;
+            animation: floatSpark 14s infinite alternate ease-in-out;
         }
-        .sparkle:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 14s; }
-        .sparkle:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 18s; animation-delay: 2s; }
-        .sparkle:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 12s; animation-delay: 4s; }
-        .sparkle:nth-child(4) { width: 8px; height: 8px; bottom: 30%; left: 10%; animation-duration: 16s; animation-delay: 1s; }
-        .sparkle:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 20s; animation-delay: 3s; }
-        .sparkle:nth-child(6) { width: 7px; height: 7px; top: 30%; left: 80%; animation-duration: 15s; animation-delay: 5s; }
+        .sparkle:nth-child(1) { width: 8px; height: 8px; top: 5%; left: 8%; animation-duration: 16s; }
+        .sparkle:nth-child(2) { width: 12px; height: 12px; bottom: 10%; right: 5%; animation-duration: 20s; animation-delay: 2s; }
+        .sparkle:nth-child(3) { width: 5px; height: 5px; top: 40%; right: 2%; animation-duration: 14s; animation-delay: 4s; }
+        .sparkle:nth-child(4) { width: 10px; height: 10px; bottom: 30%; left: 5%; animation-duration: 18s; animation-delay: 1s; }
+        .sparkle:nth-child(5) { width: 6px; height: 6px; top: 70%; left: 50%; animation-duration: 22s; animation-delay: 3s; }
+        .sparkle:nth-child(6) { width: 9px; height: 9px; top: 20%; left: 70%; animation-duration: 15s; animation-delay: 5s; }
 
         @keyframes floatSpark {
             0% { transform: translate(0, 0) scale(0.8); opacity: 0.1; }
-            100% { transform: translate(40px, -60px) scale(2); opacity: 0.6; }
+            100% { transform: translate(50px, -70px) scale(2.2); opacity: 0.5; }
         }
 
+        /* ===== АДАПТИВ ===== */
         @media (max-width: 640px) {
             body { padding: 1rem; }
-            .container { padding: 1.5rem 1rem; }
-            .header h1 { font-size: 2.2rem; }
-            .rule .title { font-size: 1rem; }
-            .rule .text { font-size: 0.9rem; padding-left: 0.8rem; }
+            .container { padding: 2rem 1.2rem; border-radius: 36px; }
+            .header h1 { font-size: 2.4rem; }
+            .rules-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .rule-card { padding: 1.2rem; }
+            .rule-card .number { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -203,35 +228,44 @@
 
     <div class="container">
         <div class="header">
+            <div class="badge">✦ свод правил</div>
             <h1>lost <span class="gold">souls</span></h1>
-            <p class="sub">свод правил · 13+</p>
+            <p>13+ · соблюдай порядок</p>
         </div>
 
         <div class="divider"></div>
 
-        <div class="rule">
-            <div class="title"><span class="num">01.</span> Возврат после бана</div>
-            <div class="text"><strong>После бана вернуться вы не сможете.</strong> Решение окончательное и обжалованию не подлежит.</div>
-        </div>
-        <div class="rule">
-            <div class="title"><span class="num">02.</span> Ссоры и оскорбления</div>
-            <div class="text">Ссоры и оскорбления без согласия или грубые обращения — <strong>запрещены</strong>. При ссоре мы ищем того, кто именно начал, и выдаём <span class="highlight">варн</span>.</div>
-        </div>
-        <div class="rule">
-            <div class="title"><span class="num">03.</span> Агрессия и буллинг</div>
-            <div class="text">Явная агрессия в сторону участника — <strong>запрещена</strong>. Выдаётся <span class="highlight">варн</span>. <em>Владелец не делит всех на любимчиков, олдов и т.д. (только в шуточном формате). Во флуде все равны.</em></div>
-        </div>
-        <div class="rule">
-            <div class="title"><span class="num">04.</span> Запрещённые темы и контент</div>
-            <div class="text">Обсуждение плохих тем (каннибализм, 18+ и т.д.) на полном серьёзе, <strong>18+ фотографии</strong>, слив чьей-то личной информации без согласия — <span class="highlight">варн</span> или <strong>бан</strong>.</div>
-        </div>
-        <div class="rule">
-            <div class="title"><span class="num">05.</span> Спам</div>
-            <div class="text">За спам (5+ одинаковых сообщений, стикеров, гифок и т.д.) — <span class="highlight">варн</span>.</div>
-        </div>
-        <div class="rule">
-            <div class="title"><span class="num">06.</span> Общее правило</div>
-            <div class="text">Относитесь друг к другу с уважением. <strong>Администрация всегда на вашей стороне</strong>, если вы соблюдаете правила.</div>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <div class="number">01</div>
+                <div class="title">Возврат после бана</div>
+                <div class="text"><strong>После бана вернуться вы не сможете.</strong> Решение окончательное и обжалованию не подлежит.</div>
+            </div>
+            <div class="rule-card">
+                <div class="number">02</div>
+                <div class="title">Ссоры и оскорбления</div>
+                <div class="text">Ссоры и оскорбления без согласия или грубые обращения — <strong>запрещены</strong>. При ссоре мы ищем того, кто именно начал, и выдаём <span class="highlight">варн</span>.</div>
+            </div>
+            <div class="rule-card">
+                <div class="number">03</div>
+                <div class="title">Агрессия и буллинг</div>
+                <div class="text">Явная агрессия в сторону участника — <strong>запрещена</strong>. Выдаётся <span class="highlight">варн</span>. <em>Владелец не делит всех на любимчиков, олдов и т.д. (только в шуточном формате). Во флуде все равны.</em></div>
+            </div>
+            <div class="rule-card">
+                <div class="number">04</div>
+                <div class="title">Запрещённые темы и контент</div>
+                <div class="text">Обсуждение плохих тем (каннибализм, 18+ и т.д.) на полном серьёзе, <strong>18+ фотографии</strong>, слив чьей-то личной информации без согласия — <span class="highlight">варн</span> или <strong>бан</strong>.</div>
+            </div>
+            <div class="rule-card">
+                <div class="number">05</div>
+                <div class="title">Спам</div>
+                <div class="text">За спам (5+ одинаковых сообщений, стикеров, гифок и т.д.) — <span class="highlight">варн</span>.</div>
+            </div>
+            <div class="rule-card">
+                <div class="number">06</div>
+                <div class="title">Общее правило</div>
+                <div class="text">Относитесь друг к другу с уважением. <strong>Администрация всегда на вашей стороне</strong>, если вы соблюдаете правила.</div>
+            </div>
         </div>
 
         <div class="footer">
@@ -240,4 +274,4 @@
     </div>
 
 </body>
-            </html>
+    </html>
