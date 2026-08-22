@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lostlouls flood · Правила</title>
+    <title>lost souls · Правила</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;700;900&display=swap" rel="stylesheet" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,7 +20,7 @@
             overflow: hidden;
         }
 
-        /* ===== ФОНОВЫЕ ШЕСТИУГОЛЬНИКИ (анимированные) ===== */
+        /* ===== ФОНОВЫЕ ШЕСТИУГОЛЬНИКИ ===== */
         .hex-bg {
             position: fixed;
             inset: 0;
@@ -48,7 +48,24 @@
             100% { transform: translate(0, 0) rotate(0deg) scale(1); }
         }
 
-        /* ===== ЖЁЛТО-ОРАНЖЕВЫЕ СВЕЧЕНИЯ ===== */
+        /* ===== ПАРЯЩИЕ ЗОЛОТЫЕ КОЛЬЦА ===== */
+        .ring {
+            position: fixed;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 200, 50, 0.08);
+            pointer-events: none;
+            z-index: 0;
+            animation: ringFloat 20s ease-in-out infinite alternate;
+        }
+        .ring:nth-child(5) { width: 300px; height: 300px; top: 10%; left: 20%; animation-duration: 25s; }
+        .ring:nth-child(6) { width: 200px; height: 200px; bottom: 20%; right: 15%; animation-duration: 18s; animation-delay: 3s; }
+        .ring:nth-child(7) { width: 400px; height: 400px; top: 50%; left: 60%; animation-duration: 30s; animation-delay: 6s; }
+        @keyframes ringFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
+            100% { transform: translate(40px, -30px) scale(1.3) rotate(180deg); opacity: 0.3; }
+        }
+
+        /* ===== СВЕЧЕНИЯ ===== */
         .glow {
             position: fixed;
             width: 60vw;
@@ -76,7 +93,7 @@
             100% { opacity: 0.6; transform: scale(1.2); }
         }
 
-        /* ===== ЗВЁЗДЫ (мерцающие) ===== */
+        /* ===== ЗВЁЗДЫ ===== */
         .stars {
             position: fixed;
             inset: 0;
@@ -125,7 +142,7 @@
             100% { opacity: 1; transform: translateY(0) rotateX(0); }
         }
 
-        /* ===== ДЕКОРАТИВНЫЕ УГЛЫ (динамичные) ===== */
+        /* ===== УГЛЫ ===== */
         .corner {
             position: absolute;
             width: 50px;
@@ -206,6 +223,30 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
+        /* анимация появления букв заголовка */
+        .header h1 .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            animation: charAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .header h1 .char:nth-child(1) { animation-delay: 0.4s; }
+        .header h1 .char:nth-child(2) { animation-delay: 0.46s; }
+        .header h1 .char:nth-child(3) { animation-delay: 0.52s; }
+        .header h1 .char:nth-child(4) { animation-delay: 0.58s; }
+        .header h1 .char:nth-child(5) { animation-delay: 0.64s; }
+        .header h1 .char:nth-child(6) { animation-delay: 0.70s; }
+        .header h1 .char:nth-child(7) { animation-delay: 0.76s; }
+        .header h1 .char:nth-child(8) { animation-delay: 0.82s; }
+        .header h1 .char:nth-child(9) { animation-delay: 0.88s; }
+        .header h1 .char:nth-child(10) { animation-delay: 0.94s; }
+        .header h1 .char:nth-child(11) { animation-delay: 1.00s; }
+        .header h1 .char:nth-child(12) { animation-delay: 1.06s; }
+        @keyframes charAppear {
+            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
         .header .sub {
             font-weight: 200;
             font-size: 1rem;
@@ -289,6 +330,11 @@
             font-size: 1rem;
             color: rgba(255, 200, 50, 0.4);
             letter-spacing: 2px;
+            animation: numGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes numGlow {
+            0% { opacity: 0.3; text-shadow: 0 0 5px rgba(255, 200, 50, 0); }
+            100% { opacity: 0.9; text-shadow: 0 0 15px rgba(255, 200, 50, 0.3); }
         }
         .rule .text {
             font-weight: 300;
@@ -336,6 +382,10 @@
         <div class="hex"></div>
     </div>
 
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+
     <div class="glow"></div>
     <div class="glow-left"></div>
 
@@ -361,7 +411,11 @@
                 <span class="diamond">✦</span>
                 <span class="line"></span>
             </div>
-            <h1>lostlouls <span class="highlight">flood</span></h1>
+            <h1>
+                <span class="char">l</span><span class="char">o</span><span class="char">s</span><span class="char">t</span>
+                <span class="char"> </span>
+                <span class="char">s</span><span class="char">o</span><span class="char">u</span><span class="char">l</span><span class="char">s</span>
+            </h1>
             <p class="sub">свод правил · 13+</p>
         </div>
 
@@ -394,14 +448,12 @@
             </div>
         </div>
 
-        <!-- разделитель внизу не убираем, но футер с надписью удалён -->
         <div class="divider" style="margin-top: 2.5rem;"></div>
 
-        <!-- Футер без текста "получил-понял" -->
         <div style="text-align: center; margin-top: 1.5rem; font-weight: 200; font-size: 0.7rem; letter-spacing: 2px; color: #7a6a5a; text-transform: uppercase;">
-            <span style="font-family: 'Inter', sans-serif; font-weight: 300; color: #b89a6a;">lostlouls flood</span>
+            <span style="font-family: 'Inter', sans-serif; font-weight: 300; color: #b89a6a;">lost souls</span>
         </div>
     </div>
 
 </body>
-    </html>
+</html>
