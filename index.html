@@ -4,456 +4,240 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>lost souls · Правила</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;700;900&display=swap" rel="stylesheet" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background: #0f0b06;
-            padding: 2rem 1.5rem;
-            font-family: 'Inter', sans-serif;
-            position: relative;
-            overflow: hidden;
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-y: auto;
         }
-
-        /* ===== ФОНОВЫЕ ШЕСТИУГОЛЬНИКИ ===== */
-        .hex-bg {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .hex {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 200, 50, 0.03);
-            border: 1px solid rgba(255, 200, 50, 0.06);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            animation: floatHex 25s linear infinite;
-        }
-        .hex:nth-child(1) { top: -10%; left: -5%; width: 300px; height: 300px; animation-duration: 30s; }
-        .hex:nth-child(2) { top: 60%; left: 70%; width: 250px; height: 250px; animation-duration: 22s; animation-delay: -5s; }
-        .hex:nth-child(3) { top: 20%; right: -5%; width: 180px; height: 180px; animation-duration: 28s; animation-delay: -10s; }
-        .hex:nth-child(4) { bottom: -5%; left: 30%; width: 220px; height: 220px; animation-duration: 35s; animation-delay: -3s; }
-        @keyframes floatHex {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            33% { transform: translate(30px, -40px) rotate(30deg) scale(1.1); }
-            66% { transform: translate(-20px, 30px) rotate(-20deg) scale(0.9); }
-            100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-        }
-
-        /* ===== ПАРЯЩИЕ ЗОЛОТЫЕ КОЛЬЦА ===== */
-        .ring {
-            position: fixed;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 200, 50, 0.08);
-            pointer-events: none;
-            z-index: 0;
-            animation: ringFloat 20s ease-in-out infinite alternate;
-        }
-        .ring:nth-child(5) { width: 300px; height: 300px; top: 10%; left: 20%; animation-duration: 25s; }
-        .ring:nth-child(6) { width: 200px; height: 200px; bottom: 20%; right: 15%; animation-duration: 18s; animation-delay: 3s; }
-        .ring:nth-child(7) { width: 400px; height: 400px; top: 50%; left: 60%; animation-duration: 30s; animation-delay: 6s; }
-        @keyframes ringFloat {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
-            100% { transform: translate(40px, -30px) scale(1.3) rotate(180deg); opacity: 0.3; }
-        }
-
-        /* ===== СВЕЧЕНИЯ ===== */
-        .glow {
-            position: fixed;
-            width: 60vw;
-            height: 60vw;
-            top: -20%;
-            right: -10%;
-            background: radial-gradient(circle, rgba(255, 180, 0, 0.12) 0%, transparent 70%);
-            filter: blur(120px);
-            z-index: 0;
-            animation: pulseGlow 8s ease-in-out infinite alternate;
-        }
-        .glow-left {
-            position: fixed;
-            width: 40vw;
-            height: 40vw;
-            bottom: -10%;
-            left: -20%;
-            background: radial-gradient(circle, rgba(255, 120, 0, 0.08) 0%, transparent 70%);
-            filter: blur(120px);
-            z-index: 0;
-            animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
-        }
-        @keyframes pulseGlow {
-            0% { opacity: 0.2; transform: scale(0.9); }
-            100% { opacity: 0.6; transform: scale(1.2); }
-        }
-
-        /* ===== ЗВЁЗДЫ ===== */
-        .stars {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #ffd700;
-            animation: twinkle 3s ease-in-out infinite alternate;
-        }
-        .star:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-        .star:nth-child(2) { top: 25%; left: 80%; animation-delay: 0.5s; width: 6px; height: 6px; }
-        .star:nth-child(3) { top: 60%; left: 5%; animation-delay: 1s; width: 3px; height: 3px; }
-        .star:nth-child(4) { top: 80%; left: 60%; animation-delay: 1.5s; width: 5px; height: 5px; }
-        .star:nth-child(5) { top: 40%; left: 50%; animation-delay: 2s; width: 7px; height: 7px; }
-        .star:nth-child(6) { top: 5%; left: 45%; animation-delay: 2.5s; width: 4px; height: 4px; }
-        .star:nth-child(7) { top: 70%; left: 85%; animation-delay: 0.8s; width: 5px; height: 5px; }
-        @keyframes twinkle {
-            0% { opacity: 0.1; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1.5); }
-        }
-
-        /* ===== КОНТЕЙНЕР ===== */
         .container {
-            position: relative;
-            z-index: 1;
-            max-width: 850px;
+            max-width: 800px;
             width: 100%;
-            background: rgba(20, 15, 8, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(20, 15, 8, 0.85);
+            backdrop-filter: blur(8px);
             border-radius: 40px;
-            padding: 3rem 2.5rem 2.5rem;
-            border: 2px solid rgba(255, 200, 50, 0.25);
-            box-shadow: 0 0 80px rgba(255, 200, 50, 0.05);
-            animation: containerFade 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 2.5rem 2rem;
+            border: 2px solid rgba(255, 200, 50, 0.3);
+            box-shadow: 0 0 60px rgba(255, 200, 50, 0.06);
+            animation: fadeUp 0.8s ease;
         }
-        @keyframes containerFade {
-            0% { opacity: 0; transform: translateY(30px) rotateX(5deg); }
-            100% { opacity: 1; transform: translateY(0) rotateX(0); }
-        }
-
-        /* ===== УГЛЫ ===== */
-        .corner {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-color: #ffd700;
-            border-style: solid;
-            border-width: 0;
-            pointer-events: none;
-            opacity: 0;
-            animation: cornerAppear 1.5s ease 0.4s forwards, cornerRotate 6s linear infinite;
-        }
-        .corner-tl { top: 12px; left: 12px; border-top-width: 3px; border-left-width: 3px; }
-        .corner-tr { top: 12px; right: 12px; border-top-width: 3px; border-right-width: 3px; }
-        .corner-bl { bottom: 12px; left: 12px; border-bottom-width: 3px; border-left-width: 3px; }
-        .corner-br { bottom: 12px; right: 12px; border-bottom-width: 3px; border-right-width: 3px; }
-        @keyframes cornerAppear {
-            0% { opacity: 0; transform: scale(0.5) rotate(45deg); }
-            100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
-        }
-        @keyframes cornerRotate {
-            0% { border-color: #ffd700; }
-            50% { border-color: #ff8c00; }
-            100% { border-color: #ffd700; }
-        }
-
-        /* ===== ШАПКА ===== */
-        .header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
-        }
-        .ornament {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        .ornament .line {
-            width: 70px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd700, #ff8c00, #ffd700, transparent);
-            background-size: 200% 100%;
-            animation: lineRun 3s linear infinite;
-        }
-        @keyframes lineRun {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        .ornament .diamond {
-            color: #ffd700;
-            font-size: 1.6rem;
-            animation: diamondPulse 2s ease-in-out infinite alternate;
-        }
-        @keyframes diamondPulse {
-            0% { transform: scale(0.8) rotate(0deg); opacity: 0.3; }
-            100% { transform: scale(1.2) rotate(90deg); opacity: 1; }
-        }
-
-        .header h1 {
-            font-weight: 900;
-            font-size: 3.6rem;
-            letter-spacing: 0.02em;
-            color: #fff3e0;
-            text-shadow: 0 0 30px rgba(255, 200, 0, 0.2);
-            line-height: 1.1;
-        }
-        .header h1 .highlight {
-            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradShift 4s ease-in-out infinite alternate;
-        }
-        @keyframes gradShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        /* анимация появления букв заголовка */
-        .header h1 .char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(20px) scale(0.8);
-            animation: charAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .header h1 .char:nth-child(1) { animation-delay: 0.4s; }
-        .header h1 .char:nth-child(2) { animation-delay: 0.46s; }
-        .header h1 .char:nth-child(3) { animation-delay: 0.52s; }
-        .header h1 .char:nth-child(4) { animation-delay: 0.58s; }
-        .header h1 .char:nth-child(5) { animation-delay: 0.64s; }
-        .header h1 .char:nth-child(6) { animation-delay: 0.70s; }
-        .header h1 .char:nth-child(7) { animation-delay: 0.76s; }
-        .header h1 .char:nth-child(8) { animation-delay: 0.82s; }
-        .header h1 .char:nth-child(9) { animation-delay: 0.88s; }
-        .header h1 .char:nth-child(10) { animation-delay: 0.94s; }
-        .header h1 .char:nth-child(11) { animation-delay: 1.00s; }
-        .header h1 .char:nth-child(12) { animation-delay: 1.06s; }
-        @keyframes charAppear {
-            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .header .sub {
-            font-weight: 200;
-            font-size: 1rem;
-            letter-spacing: 8px;
-            color: #d4b080;
-            text-transform: uppercase;
-            margin-top: 0.3rem;
-            font-weight: 300;
-            animation: fadePulse 3s ease-in-out infinite alternate;
-        }
-        @keyframes fadePulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.9; }
-        }
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== РАЗДЕЛИТЕЛЬ ===== */
+        /* Шапка */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-weight: 900;
+            font-size: 3rem;
+            color: #fff3e0;
+            text-shadow: 0 0 20px rgba(255, 200, 0, 0.2);
+            letter-spacing: 2px;
+        }
+        .header h1 .gold {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header .sub {
+            font-weight: 300;
+            font-size: 0.9rem;
+            letter-spacing: 6px;
+            color: #d4b080;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+            animation: pulseText 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes pulseText {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
         .divider {
-            width: 120px;
+            width: 100px;
             height: 2px;
-            background: repeating-linear-gradient(90deg, #ffd700, #ff8c00 10px, transparent 10px, transparent 20px);
-            margin: 2rem auto;
+            background: linear-gradient(90deg, transparent, #ffd700, #ff8c00, transparent);
+            margin: 1.5rem auto;
             border-radius: 10px;
-            animation: dividerMove 4s linear infinite;
+            animation: lineMove 3s linear infinite;
         }
-        @keyframes dividerMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 0; }
-        }
-
-        /* ===== ПРАВИЛА ===== */
-        .rules {
-            display: flex;
-            flex-direction: column;
-            gap: 1.6rem;
+        @keyframes lineMove {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+            background-size: 200% 100%;
         }
 
+        /* Правила */
         .rule {
             background: rgba(255, 200, 50, 0.04);
-            border-radius: 20px;
-            padding: 1.2rem 1.8rem;
-            border-left: 4px solid transparent;
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.2rem;
+            border-left: 4px solid rgba(255, 200, 50, 0.2);
+            transition: 0.3s;
+            animation: slideIn 0.6s ease forwards;
             opacity: 0;
-            transform: perspective(800px) rotateY(30deg);
-            animation: ruleFlip 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateX(-15px);
         }
-        .rule:nth-child(1) { animation-delay: 1.2s; }
-        .rule:nth-child(2) { animation-delay: 1.3s; }
-        .rule:nth-child(3) { animation-delay: 1.4s; }
-        .rule:nth-child(4) { animation-delay: 1.5s; }
-        .rule:nth-child(5) { animation-delay: 1.6s; }
-        .rule:nth-child(6) { animation-delay: 1.7s; }
+        .rule:nth-child(1) { animation-delay: 0.1s; }
+        .rule:nth-child(2) { animation-delay: 0.2s; }
+        .rule:nth-child(3) { animation-delay: 0.3s; }
+        .rule:nth-child(4) { animation-delay: 0.4s; }
+        .rule:nth-child(5) { animation-delay: 0.5s; }
+        .rule:nth-child(6) { animation-delay: 0.6s; }
 
-        @keyframes ruleFlip {
-            0% { opacity: 0; transform: perspective(800px) rotateY(30deg) translateX(-20px); }
-            100% { opacity: 1; transform: perspective(800px) rotateY(0deg) translateX(0); }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(-15px); }
+            100% { opacity: 1; transform: translateX(0); }
         }
 
         .rule:hover {
             background: rgba(255, 200, 50, 0.08);
             border-left-color: #ffd700;
-            transform: perspective(800px) rotateY(-5deg) scale(1.02);
-            box-shadow: 0 0 40px rgba(255, 200, 50, 0.08);
+            transform: translateX(5px);
         }
 
         .rule .title {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ffd700;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .rule .title .num {
-            font-weight: 200;
-            font-size: 1rem;
+            font-weight: 300;
+            font-size: 0.9rem;
             color: rgba(255, 200, 50, 0.4);
-            letter-spacing: 2px;
-            animation: numGlow 2s ease-in-out infinite alternate;
-        }
-        @keyframes numGlow {
-            0% { opacity: 0.3; text-shadow: 0 0 5px rgba(255, 200, 50, 0); }
-            100% { opacity: 0.9; text-shadow: 0 0 15px rgba(255, 200, 50, 0.3); }
         }
         .rule .text {
             font-weight: 300;
             font-size: 1rem;
-            line-height: 1.8;
+            line-height: 1.7;
             color: #e0d0b8;
             padding-left: 1.8rem;
         }
         .rule .text strong {
             color: #ffd700;
-            font-weight: 400;
+            font-weight: 500;
         }
         .rule .text .highlight {
             color: #ff8c00;
-            font-weight: 400;
             background: rgba(255, 140, 0, 0.1);
-            padding: 0.1rem 0.4rem;
-            border-radius: 6px;
+            padding: 0.05rem 0.4rem;
+            border-radius: 4px;
         }
 
-        /* ===== АДАПТИВ ===== */
+        /* Футер */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #7a6a5a;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 200, 50, 0.08);
+            padding-top: 1.5rem;
+        }
+        .footer span {
+            color: #b89a6a;
+            font-weight: 300;
+        }
+
+        /* Золотые искры (анимация) */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent 80%);
+            filter: blur(1px);
+            z-index: -1;
+            animation: floatSpark 12s infinite alternate ease-in-out;
+        }
+        .sparkle:nth-child(1) { width: 6px; height: 6px; top: 10%; left: 5%; animation-duration: 14s; }
+        .sparkle:nth-child(2) { width: 10px; height: 10px; bottom: 15%; right: 8%; animation-duration: 18s; animation-delay: 2s; }
+        .sparkle:nth-child(3) { width: 4px; height: 4px; top: 45%; right: 2%; animation-duration: 12s; animation-delay: 4s; }
+        .sparkle:nth-child(4) { width: 8px; height: 8px; bottom: 30%; left: 10%; animation-duration: 16s; animation-delay: 1s; }
+        .sparkle:nth-child(5) { width: 5px; height: 5px; top: 70%; left: 60%; animation-duration: 20s; animation-delay: 3s; }
+        .sparkle:nth-child(6) { width: 7px; height: 7px; top: 30%; left: 80%; animation-duration: 15s; animation-delay: 5s; }
+
+        @keyframes floatSpark {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0.1; }
+            100% { transform: translate(40px, -60px) scale(2); opacity: 0.6; }
+        }
+
         @media (max-width: 640px) {
             body { padding: 1rem; }
-            .container { padding: 2rem 1.2rem; border-radius: 30px; }
-            .corner { width: 30px; height: 30px; }
-            .corner-tl { top: 8px; left: 8px; }
-            .corner-tr { top: 8px; right: 8px; }
-            .corner-bl { bottom: 8px; left: 8px; }
-            .corner-br { bottom: 8px; right: 8px; }
-            .header h1 { font-size: 2.4rem; }
-            .header .sub { font-size: 0.7rem; letter-spacing: 5px; }
-            .rule { padding: 0.8rem; }
-            .rule .title { font-size: 1.0rem; }
-            .rule .text { font-size: 0.85rem; padding-left: 0.8rem; }
-            .ornament .line { width: 40px; }
+            .container { padding: 1.5rem 1rem; }
+            .header h1 { font-size: 2.2rem; }
+            .rule .title { font-size: 1rem; }
+            .rule .text { font-size: 0.9rem; padding-left: 0.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hex-bg">
-        <div class="hex"></div>
-        <div class="hex"></div>
-        <div class="hex"></div>
-        <div class="hex"></div>
-    </div>
-
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-
-    <div class="glow"></div>
-    <div class="glow-left"></div>
-
-    <div class="stars">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-    </div>
+    <!-- Искры -->
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
 
     <div class="container">
-        <div class="corner corner-tl"></div>
-        <div class="corner corner-tr"></div>
-        <div class="corner corner-bl"></div>
-        <div class="corner corner-br"></div>
-
         <div class="header">
-            <div class="ornament">
-                <span class="line"></span>
-                <span class="diamond">✦</span>
-                <span class="line"></span>
-            </div>
-            <h1>
-                <span class="char">l</span><span class="char">o</span><span class="char">s</span><span class="char">t</span>
-                <span class="char"> </span>
-                <span class="char">s</span><span class="char">o</span><span class="char">u</span><span class="char">l</span><span class="char">s</span>
-            </h1>
+            <h1>lost <span class="gold">souls</span></h1>
             <p class="sub">свод правил · 13+</p>
         </div>
 
         <div class="divider"></div>
 
-        <div class="rules">
-            <div class="rule">
-                <div class="title"><span class="num">01.</span> Возврат после бана</div>
-                <div class="text"><strong>После бана вернуться вы не сможете.</strong> Решение окончательное и обжалованию не подлежит.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">02.</span> Ссоры и оскорбления</div>
-                <div class="text">Ссоры и оскорбления без согласия или грубые обращения — <strong>запрещены</strong>. При ссоре мы ищем того, кто именно начал, и выдаём <span class="highlight">варн</span>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">03.</span> Агрессия и буллинг</div>
-                <div class="text">Явная агрессия в сторону участника — <strong>запрещена</strong>. Выдаётся <span class="highlight">варн</span>. <em>Владелец не делит всех на любимчиков, олдов и т.д. (только в шуточном формате). Во флуде все равны.</em></div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">04.</span> Запрещённые темы и контент</div>
-                <div class="text">Обсуждение плохих тем (каннибализм, 18+ и т.д.) на полном серьёзе, <strong>18+ фотографии</strong>, слив чьей-то личной информации без согласия — <span class="highlight">варн</span> или <strong>бан</strong>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">05.</span> Спам</div>
-                <div class="text">За спам (5+ одинаковых сообщений, стикеров, гифок и т.д.) — <span class="highlight">варн</span>.</div>
-            </div>
-            <div class="rule">
-                <div class="title"><span class="num">06.</span> Общее правило</div>
-                <div class="text">Относитесь друг к другу с уважением. <strong>Администрация всегда на вашей стороне</strong>, если вы соблюдаете правила.</div>
-            </div>
+        <div class="rule">
+            <div class="title"><span class="num">01.</span> Возврат после бана</div>
+            <div class="text"><strong>После бана вернуться вы не сможете.</strong> Решение окончательное и обжалованию не подлежит.</div>
+        </div>
+        <div class="rule">
+            <div class="title"><span class="num">02.</span> Ссоры и оскорбления</div>
+            <div class="text">Ссоры и оскорбления без согласия или грубые обращения — <strong>запрещены</strong>. При ссоре мы ищем того, кто именно начал, и выдаём <span class="highlight">варн</span>.</div>
+        </div>
+        <div class="rule">
+            <div class="title"><span class="num">03.</span> Агрессия и буллинг</div>
+            <div class="text">Явная агрессия в сторону участника — <strong>запрещена</strong>. Выдаётся <span class="highlight">варн</span>. <em>Владелец не делит всех на любимчиков, олдов и т.д. (только в шуточном формате). Во флуде все равны.</em></div>
+        </div>
+        <div class="rule">
+            <div class="title"><span class="num">04.</span> Запрещённые темы и контент</div>
+            <div class="text">Обсуждение плохих тем (каннибализм, 18+ и т.д.) на полном серьёзе, <strong>18+ фотографии</strong>, слив чьей-то личной информации без согласия — <span class="highlight">варн</span> или <strong>бан</strong>.</div>
+        </div>
+        <div class="rule">
+            <div class="title"><span class="num">05.</span> Спам</div>
+            <div class="text">За спам (5+ одинаковых сообщений, стикеров, гифок и т.д.) — <span class="highlight">варн</span>.</div>
+        </div>
+        <div class="rule">
+            <div class="title"><span class="num">06.</span> Общее правило</div>
+            <div class="text">Относитесь друг к другу с уважением. <strong>Администрация всегда на вашей стороне</strong>, если вы соблюдаете правила.</div>
         </div>
 
-        <div class="divider" style="margin-top: 2.5rem;"></div>
-
-        <div style="text-align: center; margin-top: 1.5rem; font-weight: 200; font-size: 0.7rem; letter-spacing: 2px; color: #7a6a5a; text-transform: uppercase;">
-            <span style="font-family: 'Inter', sans-serif; font-weight: 300; color: #b89a6a;">lost souls</span>
+        <div class="footer">
+            <span>lost souls</span>
         </div>
     </div>
 
 </body>
-</html>
+            </html>
