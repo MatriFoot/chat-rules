@@ -40,7 +40,7 @@
             100% { border-color: #ff8c00; opacity: 0.7; transform: scale(1.1); }
         }
 
-        /* ===== АНИМАЦИИ ПОВЕРХ ВСЕГО (золотые кольца и искры) ===== */
+        /* ===== АНИМАЦИИ ПОВЕРХ ВСЕГО ===== */
         .front-ring {
             position: fixed;
             border-radius: 50%;
@@ -96,7 +96,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== ОРНАМЕНТ (над заголовком) ===== */
+        /* ===== ОРНАМЕНТ ===== */
         .ornament {
             display: flex;
             justify-content: center;
@@ -186,7 +186,7 @@
             border-radius: 10px;
         }
 
-        /* ===== СЕТКА ПРАВИЛ (плитки) ===== */
+        /* ===== СЕТКА ПРАВИЛ ===== */
         .rules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -263,10 +263,74 @@
             border-radius: 4px;
         }
 
+        /* ===== БЛОК ВЫХОДА ИЗ ФЛУДА ===== */
+        .exit-block {
+            margin-top: 2.5rem;
+            padding: 1.8rem 2rem;
+            background: rgba(255, 180, 50, 0.04);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 180, 50, 0.1);
+            transition: 0.4s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: cardIn 0.6s ease 0.6s forwards;
+        }
+        .exit-block:hover {
+            background: rgba(255, 180, 50, 0.07);
+            border-color: rgba(255, 180, 50, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255, 180, 50, 0.04);
+        }
+
+        .exit-block .exit-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .exit-block .exit-title .icon {
+            font-size: 1.8rem;
+            animation: iconFloat 3s ease-in-out infinite alternate;
+        }
+        @keyframes iconFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .exit-block .exit-text {
+            font-weight: 300;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #d0c0b0;
+            padding-left: 2.6rem;
+        }
+        .exit-block .exit-text strong {
+            color: #ffb833;
+            font-weight: 400;
+        }
+        .exit-block .exit-example {
+            margin-top: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border-left: 3px solid #ffb833;
+            font-style: italic;
+            color: #f5eee0;
+            font-weight: 300;
+        }
+        .exit-block .exit-example .label {
+            color: #ffb833;
+            font-weight: 400;
+            font-style: normal;
+        }
+
         /* ===== ФУТЕР ===== */
         .footer {
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             padding-top: 1.5rem;
             border-top: 1px solid rgba(255, 180, 50, 0.06);
             font-size: 0.7rem;
@@ -293,19 +357,22 @@
             .rule-card { padding: 1.2rem; }
             .rule-card .number { font-size: 1.8rem; }
             .ornament .line { width: 40px; }
-            .front-ring { display: none; } /* убираем большие кольца на телефонах */
+            .front-ring { display: none; }
+            .exit-block { padding: 1.2rem; }
+            .exit-block .exit-title { font-size: 1.1rem; }
+            .exit-block .exit-text { padding-left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- УГЛЫ (поверх всего) -->
+    <!-- УГЛЫ -->
     <div class="corner corner-tl"></div>
     <div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div>
     <div class="corner corner-br"></div>
 
-    <!-- АНИМАЦИИ ПОВЕРХ ВСЕГО -->
+    <!-- АНИМАЦИИ ПОВЕРХ -->
     <div class="front-ring"></div>
     <div class="front-ring"></div>
     <div class="front-ring"></div>
@@ -316,7 +383,6 @@
     <div class="front-sparkle"></div>
     <div class="front-sparkle"></div>
 
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
     <div class="container">
         <!-- Орнамент -->
         <div class="ornament">
@@ -366,10 +432,26 @@
             </div>
         </div>
 
+        <!-- ===== НОВЫЙ БЛОК: ПОРЯДОК ВЫХОДА ИЗ ФЛУДА ===== -->
+        <div class="exit-block">
+            <div class="exit-title">
+                <span class="icon">🚪</span> Порядок выхода из флуда
+            </div>
+            <div class="exit-text">
+                <strong>1.</strong> Упомянуть владельца флуда или совладельца.<br />
+                <strong>2.</strong> Указать причину (по желанию, можно в лс).
+            </div>
+            <div class="exit-example">
+                <span class="label">Пример:</span><br />
+                Роль: Доктор Стрэндж<br />
+                Причина: отсутствие свободного времени.
+            </div>
+        </div>
+
         <div class="footer">
             <span>lost souls</span>
         </div>
     </div>
 
 </body>
-        </html>
+    </html>
