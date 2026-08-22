@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>lost souls · Правила</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             min-height: 100vh;
             display: flex;
@@ -19,17 +15,80 @@
             padding: 2rem 1rem;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-y: auto;
+            position: relative;
         }
 
+        /* ===== ДЕКОРАТИВНЫЕ УГЛЫ ===== */
+        .corner {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            border-color: #ffd700;
+            border-style: solid;
+            border-width: 0;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.4;
+            animation: cornerPulse 3s ease-in-out infinite alternate;
+        }
+        .corner-tl { top: 20px; left: 20px; border-top-width: 3px; border-left-width: 3px; }
+        .corner-tr { top: 20px; right: 20px; border-top-width: 3px; border-right-width: 3px; }
+        .corner-bl { bottom: 20px; left: 20px; border-bottom-width: 3px; border-left-width: 3px; }
+        .corner-br { bottom: 20px; right: 20px; border-bottom-width: 3px; border-right-width: 3px; }
+        @keyframes cornerPulse {
+            0% { border-color: #ffd700; opacity: 0.2; transform: scale(0.9); }
+            100% { border-color: #ff8c00; opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* ===== АНИМАЦИИ ПОВЕРХ ВСЕГО (золотые кольца и искры) ===== */
+        .front-ring {
+            position: fixed;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            pointer-events: none;
+            z-index: 20;
+            animation: floatRing 20s ease-in-out infinite alternate;
+        }
+        .front-ring:nth-child(1) { width: 400px; height: 400px; top: 10%; left: 5%; animation-duration: 25s; }
+        .front-ring:nth-child(2) { width: 300px; height: 300px; bottom: 5%; right: 10%; animation-duration: 18s; animation-delay: 4s; }
+        .front-ring:nth-child(3) { width: 200px; height: 200px; top: 50%; left: 70%; animation-duration: 22s; animation-delay: 8s; }
+        @keyframes floatRing {
+            0% { transform: translate(0, 0) rotate(0deg) scale(0.9); opacity: 0.1; }
+            100% { transform: translate(-30px, 40px) rotate(180deg) scale(1.4); opacity: 0.3; }
+        }
+
+        .front-sparkle {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent 80%);
+            pointer-events: none;
+            z-index: 15;
+            filter: blur(2px);
+            animation: floatSparkle 12s infinite alternate ease-in-out;
+        }
+        .front-sparkle:nth-child(4) { width: 8px; height: 8px; top: 15%; left: 10%; animation-duration: 14s; }
+        .front-sparkle:nth-child(5) { width: 12px; height: 12px; bottom: 20%; right: 5%; animation-duration: 18s; animation-delay: 2s; }
+        .front-sparkle:nth-child(6) { width: 6px; height: 6px; top: 45%; right: 15%; animation-duration: 12s; animation-delay: 4s; }
+        .front-sparkle:nth-child(7) { width: 10px; height: 10px; bottom: 30%; left: 8%; animation-duration: 16s; animation-delay: 1s; }
+        .front-sparkle:nth-child(8) { width: 5px; height: 5px; top: 70%; left: 55%; animation-duration: 20s; animation-delay: 3s; }
+        .front-sparkle:nth-child(9) { width: 9px; height: 9px; top: 25%; left: 80%; animation-duration: 15s; animation-delay: 5s; }
+        @keyframes floatSparkle {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0.1; }
+            100% { transform: translate(40px, -60px) scale(2.2); opacity: 0.6; }
+        }
+
+        /* ===== КОНТЕЙНЕР ===== */
         .container {
             max-width: 900px;
             width: 100%;
-            background: rgba(20, 16, 12, 0.75);
+            background: rgba(20, 16, 12, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 56px;
             padding: 3rem 2.5rem;
-            border: 1px solid rgba(255, 180, 50, 0.15);
+            border: 1px solid rgba(255, 180, 50, 0.12);
             box-shadow: 0 0 60px rgba(255, 180, 50, 0.03);
+            position: relative;
+            z-index: 5;
             animation: fadeUp 0.8s ease;
         }
         @keyframes fadeUp {
@@ -37,10 +96,41 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== ОРНАМЕНТ (над заголовком) ===== */
+        .ornament {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+        }
+        .ornament .line {
+            width: 70px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, #ff8c00, transparent);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: lineMove 3s linear infinite;
+        }
+        @keyframes lineMove {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .ornament .diamond {
+            color: #ffd700;
+            font-size: 1.6rem;
+            animation: diamondSpin 4s linear infinite;
+        }
+        @keyframes diamondSpin {
+            0% { transform: rotate(0deg); opacity: 0.3; }
+            50% { transform: rotate(180deg); opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0.3; }
+        }
+
         /* ===== ШАПКА ===== */
         .header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
         .header .badge {
             display: inline-block;
@@ -51,12 +141,12 @@
             padding: 0.3rem 1.2rem;
             border-radius: 40px;
             text-transform: uppercase;
-            border: 1px solid rgba(255, 180, 50, 0.15);
-            margin-bottom: 0.8rem;
+            border: 1px solid rgba(255, 180, 50, 0.12);
+            margin-bottom: 0.6rem;
             animation: pulseBadge 2.5s ease-in-out infinite alternate;
         }
         @keyframes pulseBadge {
-            0% { opacity: 0.5; }
+            0% { opacity: 0.4; }
             100% { opacity: 1; }
         }
         .header h1 {
@@ -71,6 +161,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: goldShift 3s ease-in-out infinite alternate;
+            background-size: 200% 200%;
+        }
+        @keyframes goldShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         .header p {
             color: #b8a088;
@@ -93,7 +189,7 @@
         /* ===== СЕТКА ПРАВИЛ (плитки) ===== */
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
         }
@@ -101,7 +197,7 @@
         .rule-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 24px;
-            padding: 1.6rem 1.8rem;
+            padding: 1.5rem 1.8rem;
             border: 1px solid rgba(255, 180, 50, 0.06);
             transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
@@ -183,50 +279,52 @@
             font-weight: 300;
         }
 
-        /* ===== ЗОЛОТЫЕ ИСКРЫ ===== */
-        .sparkle {
-            position: fixed;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 200, 100, 0.25), transparent 80%);
-            filter: blur(2px);
-            pointer-events: none;
-            z-index: -1;
-            animation: floatSpark 14s infinite alternate ease-in-out;
-        }
-        .sparkle:nth-child(1) { width: 8px; height: 8px; top: 5%; left: 8%; animation-duration: 16s; }
-        .sparkle:nth-child(2) { width: 12px; height: 12px; bottom: 10%; right: 5%; animation-duration: 20s; animation-delay: 2s; }
-        .sparkle:nth-child(3) { width: 5px; height: 5px; top: 40%; right: 2%; animation-duration: 14s; animation-delay: 4s; }
-        .sparkle:nth-child(4) { width: 10px; height: 10px; bottom: 30%; left: 5%; animation-duration: 18s; animation-delay: 1s; }
-        .sparkle:nth-child(5) { width: 6px; height: 6px; top: 70%; left: 50%; animation-duration: 22s; animation-delay: 3s; }
-        .sparkle:nth-child(6) { width: 9px; height: 9px; top: 20%; left: 70%; animation-duration: 15s; animation-delay: 5s; }
-
-        @keyframes floatSpark {
-            0% { transform: translate(0, 0) scale(0.8); opacity: 0.1; }
-            100% { transform: translate(50px, -70px) scale(2.2); opacity: 0.5; }
-        }
-
         /* ===== АДАПТИВ ===== */
         @media (max-width: 640px) {
             body { padding: 1rem; }
+            .corner { width: 30px; height: 30px; }
+            .corner-tl { top: 10px; left: 10px; }
+            .corner-tr { top: 10px; right: 10px; }
+            .corner-bl { bottom: 10px; left: 10px; }
+            .corner-br { bottom: 10px; right: 10px; }
             .container { padding: 2rem 1.2rem; border-radius: 36px; }
             .header h1 { font-size: 2.4rem; }
             .rules-grid { grid-template-columns: 1fr; gap: 1rem; }
             .rule-card { padding: 1.2rem; }
             .rule-card .number { font-size: 1.8rem; }
+            .ornament .line { width: 40px; }
+            .front-ring { display: none; } /* убираем большие кольца на телефонах */
         }
     </style>
 </head>
 <body>
 
-    <!-- Искры -->
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
+    <!-- УГЛЫ (поверх всего) -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
 
+    <!-- АНИМАЦИИ ПОВЕРХ ВСЕГО -->
+    <div class="front-ring"></div>
+    <div class="front-ring"></div>
+    <div class="front-ring"></div>
+    <div class="front-sparkle"></div>
+    <div class="front-sparkle"></div>
+    <div class="front-sparkle"></div>
+    <div class="front-sparkle"></div>
+    <div class="front-sparkle"></div>
+    <div class="front-sparkle"></div>
+
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
     <div class="container">
+        <!-- Орнамент -->
+        <div class="ornament">
+            <span class="line"></span>
+            <span class="diamond">✦</span>
+            <span class="line"></span>
+        </div>
+
         <div class="header">
             <div class="badge">✦ свод правил</div>
             <h1>lost <span class="gold">souls</span></h1>
@@ -274,4 +372,4 @@
     </div>
 
 </body>
-    </html>
+        </html>
