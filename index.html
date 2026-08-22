@@ -6,6 +6,8 @@
     <title>lost souls · Правила</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ===== ОБЩАЯ АНИМАЦИЯ ФОНА (переливание) ===== */
         body {
             min-height: 100vh;
             display: flex;
@@ -16,6 +18,13 @@
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-y: auto;
             position: relative;
+            animation: bgShift 12s ease-in-out infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { background: #0b0806; }
+            30% { background: #1a130a; }
+            60% { background: #0f0b06; }
+            100% { background: #0b0806; }
         }
 
         /* ===== УГЛЫ ===== */
@@ -40,7 +49,7 @@
             100% { border-color: #ff8c00; opacity: 0.7; transform: scale(1.1); }
         }
 
-        /* ===== АНИМАЦИИ ПОВЕРХ (кольца и искры) ===== */
+        /* ===== ФОНОВЫЕ КОЛЬЦА И ИСКРЫ ===== */
         .front-ring {
             position: fixed;
             border-radius: 50%;
@@ -263,32 +272,42 @@
             border-radius: 4px;
         }
 
-        /* ===== БЛОК ВЫХОДА ИЗ ФЛУДА (улучшенный) ===== */
+        /* ===== БЛОК ВЫХОДА (с 3D и анимациями) ===== */
         .exit-block {
             margin-top: 2.8rem;
-            padding: 2rem 2.2rem;
+            padding: 2.2rem 2.5rem;
             border-radius: 32px;
             background: rgba(255, 180, 50, 0.05);
             border: 2px solid rgba(255, 215, 0, 0.15);
             position: relative;
-            transition: 0.4s ease;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            transform: scale(0.95);
-            animation: exitAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
-        }
-        @keyframes exitAppear {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
+            transform: perspective(800px) rotateX(10deg) translateY(20px);
+            animation: exitEntry 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            overflow: visible;
         }
 
-        /* Анимированная золотая рамка (пульсация) */
+        @keyframes exitEntry {
+            0% { opacity: 0; transform: perspective(800px) rotateX(10deg) translateY(20px); }
+            100% { opacity: 1; transform: perspective(800px) rotateX(0) translateY(0); }
+        }
+
+        .exit-block:hover {
+            transform: perspective(800px) rotateX(2deg) rotateY(4deg) translateY(-6px) scale(1.02);
+            background: rgba(255, 180, 50, 0.08);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
         .exit-block::before {
             content: '';
             position: absolute;
-            inset: -4px;
+            inset: -5px;
             border-radius: 36px;
             padding: 4px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
+            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700, #ff8c00);
             background-size: 300% 300%;
             animation: borderGlow 4s ease-in-out infinite alternate;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -303,19 +322,31 @@
             100% { background-position: 100% 50%; opacity: 0.9; }
         }
 
-        .exit-block:hover {
-            transform: scale(1.02);
-            background: rgba(255, 180, 50, 0.08);
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.08);
+        .exit-block .deco-star {
+            position: absolute;
+            color: #ffd700;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            animation: starFloat 6s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        .exit-block .deco-star:nth-child(1) { top: -10px; left: -10px; animation-delay: 0s; }
+        .exit-block .deco-star:nth-child(2) { top: -15px; right: -5px; animation-delay: 2s; }
+        .exit-block .deco-star:nth-child(3) { bottom: -10px; left: 20%; animation-delay: 4s; }
+        .exit-block .deco-star:nth-child(4) { bottom: 5px; right: -10px; animation-delay: 1s; }
+
+        @keyframes starFloat {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0.2; }
+            100% { transform: translate(15px, -25px) scale(1.4); opacity: 0.8; }
         }
 
         .exit-block .exit-title {
             font-weight: 700;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             color: #ffd700;
             text-align: center;
             margin-bottom: 1rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
             animation: titlePulse 3s ease-in-out infinite alternate;
         }
@@ -346,6 +377,12 @@
             color: #f5eee0;
             font-weight: 300;
             text-align: center;
+            transition: 0.3s;
+        }
+        .exit-block .exit-example:hover {
+            background: rgba(255, 215, 0, 0.05);
+            border-left-color: #ff8c00;
+            transform: translateX(8px);
         }
         .exit-block .exit-example .label {
             color: #ffd700;
@@ -387,6 +424,7 @@
             .exit-block { padding: 1.5rem; }
             .exit-block .exit-title { font-size: 1.3rem; }
             .exit-block .exit-text { font-size: 0.95rem; }
+            .exit-block .deco-star { display: none; }
         }
     </style>
 </head>
@@ -398,7 +436,7 @@
     <div class="corner corner-bl"></div>
     <div class="corner corner-br"></div>
 
-    <!-- АНИМАЦИИ ПОВЕРХ -->
+    <!-- КОЛЬЦА И ИСКРЫ -->
     <div class="front-ring"></div>
     <div class="front-ring"></div>
     <div class="front-ring"></div>
@@ -410,7 +448,6 @@
     <div class="front-sparkle"></div>
 
     <div class="container">
-        <!-- Орнамент -->
         <div class="ornament">
             <span class="line"></span>
             <span class="diamond">✦</span>
@@ -458,8 +495,13 @@
             </div>
         </div>
 
-        <!-- ===== УЛУЧШЕННЫЙ БЛОК ВЫХОДА ИЗ ФЛУДА (без смайлика, с анимированной рамкой) ===== -->
+        <!-- БЛОК ВЫХОДА С ИСПРАВЛЕННЫМ ИМЕНЕМ "Хена" -->
         <div class="exit-block">
+            <span class="deco-star">✦</span>
+            <span class="deco-star">✦</span>
+            <span class="deco-star">✦</span>
+            <span class="deco-star">✦</span>
+
             <div class="exit-title">Порядок выхода из флуда</div>
             <div class="exit-text">
                 <strong>1.</strong> Упомянуть владельца флуда или совладельца.<br />
@@ -467,7 +509,7 @@
             </div>
             <div class="exit-example">
                 <span class="label">Пример:</span><br />
-                Роль: Доктор Стрэндж<br />
+                Роль: Хена<br />
                 Причина: отсутствие свободного времени.
             </div>
         </div>
