@@ -18,7 +18,7 @@
             position: relative;
         }
 
-        /* ===== ДЕКОРАТИВНЫЕ УГЛЫ ===== */
+        /* ===== УГЛЫ ===== */
         .corner {
             position: fixed;
             width: 50px;
@@ -40,7 +40,7 @@
             100% { border-color: #ff8c00; opacity: 0.7; transform: scale(1.1); }
         }
 
-        /* ===== АНИМАЦИИ ПОВЕРХ ВСЕГО ===== */
+        /* ===== АНИМАЦИИ ПОВЕРХ (кольца и искры) ===== */
         .front-ring {
             position: fixed;
             border-radius: 50%;
@@ -263,66 +263,92 @@
             border-radius: 4px;
         }
 
-        /* ===== БЛОК ВЫХОДА ИЗ ФЛУДА ===== */
+        /* ===== БЛОК ВЫХОДА ИЗ ФЛУДА (улучшенный) ===== */
         .exit-block {
-            margin-top: 2.5rem;
-            padding: 1.8rem 2rem;
-            background: rgba(255, 180, 50, 0.04);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 180, 50, 0.1);
-            transition: 0.4s;
+            margin-top: 2.8rem;
+            padding: 2rem 2.2rem;
+            border-radius: 32px;
+            background: rgba(255, 180, 50, 0.05);
+            border: 2px solid rgba(255, 215, 0, 0.15);
+            position: relative;
+            transition: 0.4s ease;
             opacity: 0;
-            transform: translateY(20px);
-            animation: cardIn 0.6s ease 0.6s forwards;
+            transform: scale(0.95);
+            animation: exitAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
         }
+        @keyframes exitAppear {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Анимированная золотая рамка (пульсация) */
+        .exit-block::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 36px;
+            padding: 4px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
+            background-size: 300% 300%;
+            animation: borderGlow 4s ease-in-out infinite alternate;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; opacity: 0.3; }
+            100% { background-position: 100% 50%; opacity: 0.9; }
+        }
+
         .exit-block:hover {
-            background: rgba(255, 180, 50, 0.07);
-            border-color: rgba(255, 180, 50, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(255, 180, 50, 0.04);
+            transform: scale(1.02);
+            background: rgba(255, 180, 50, 0.08);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.08);
         }
 
         .exit-block .exit-title {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             color: #ffd700;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 0.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+            animation: titlePulse 3s ease-in-out infinite alternate;
         }
-        .exit-block .exit-title .icon {
-            font-size: 1.8rem;
-            animation: iconFloat 3s ease-in-out infinite alternate;
-        }
-        @keyframes iconFloat {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
+        @keyframes titlePulse {
+            0% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.1); }
+            100% { text-shadow: 0 0 50px rgba(255, 215, 0, 0.3); }
         }
 
         .exit-block .exit-text {
             font-weight: 300;
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #d0c0b0;
-            padding-left: 2.6rem;
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #e0d0b8;
+            text-align: center;
         }
         .exit-block .exit-text strong {
             color: #ffb833;
             font-weight: 400;
         }
+
         .exit-block .exit-example {
-            margin-top: 1rem;
-            padding: 1rem 1.5rem;
+            margin-top: 1.2rem;
+            padding: 1rem 1.8rem;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            border-left: 3px solid #ffb833;
+            border-radius: 20px;
+            border-left: 4px solid #ffd700;
             font-style: italic;
             color: #f5eee0;
             font-weight: 300;
+            text-align: center;
         }
         .exit-block .exit-example .label {
-            color: #ffb833;
+            color: #ffd700;
             font-weight: 400;
             font-style: normal;
         }
@@ -358,9 +384,9 @@
             .rule-card .number { font-size: 1.8rem; }
             .ornament .line { width: 40px; }
             .front-ring { display: none; }
-            .exit-block { padding: 1.2rem; }
-            .exit-block .exit-title { font-size: 1.1rem; }
-            .exit-block .exit-text { padding-left: 0; }
+            .exit-block { padding: 1.5rem; }
+            .exit-block .exit-title { font-size: 1.3rem; }
+            .exit-block .exit-text { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -432,11 +458,9 @@
             </div>
         </div>
 
-        <!-- ===== НОВЫЙ БЛОК: ПОРЯДОК ВЫХОДА ИЗ ФЛУДА ===== -->
+        <!-- ===== УЛУЧШЕННЫЙ БЛОК ВЫХОДА ИЗ ФЛУДА (без смайлика, с анимированной рамкой) ===== -->
         <div class="exit-block">
-            <div class="exit-title">
-                <span class="icon">🚪</span> Порядок выхода из флуда
-            </div>
+            <div class="exit-title">Порядок выхода из флуда</div>
             <div class="exit-text">
                 <strong>1.</strong> Упомянуть владельца флуда или совладельца.<br />
                 <strong>2.</strong> Указать причину (по желанию, можно в лс).
